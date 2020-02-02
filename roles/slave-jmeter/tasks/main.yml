@@ -1,0 +1,32 @@
+---
+# tasks file for slave
+# スレーブサーバ自動起動設定
+- name: put_jmeter-server.sh
+  copy:
+    src: ../files/jmeter-server.sh
+    dest: /usr/local/jmeter/bin/jmeter-server.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: put_jmeter-client.service
+  copy:
+    src: ../files/jmeter-client.service
+    dest: /etc/systemd/system/jmeter-client.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: change_jmeter-server
+  blockinfile:
+    dest: /usr/local/jmeter/bin/jmeter-server
+    insertafter: '^#RMI_HOST_DEF=-Djava.rmi.server.hostname=xxx.xxx.xxx.xxx'
+#    content: RMI_HOST_DEF=-Djava.rmi.server.hostname={{ ansible_default_ipv4.address }}
+    content: RMI_HOST_DEF=-Djava.rmi.server.hostname={{ ansible_eth1.ipv4.address }}
+    backup: yes
+
+- name: start_jmeter-client.service
+  systemd:
+    name: jmeter-client.service
+    state: started
+    enabled: yes

@@ -1,0 +1,21 @@
+---
+# Main Playbook
+- name: apply master configuration to master nodes
+  hosts: master
+  remote_user: vagrant
+  become: yes
+  roles:
+#    - common
+    - tigervnc
+    - jmeter51
+    - reboot
+
+- name: apply slave configuration to slave nodes 
+  hosts: slave
+  remote_user: vagrant
+  become: yes
+  roles:
+#    - common
+    - jmeter51
+    - slave-jmeter
+    - reboot

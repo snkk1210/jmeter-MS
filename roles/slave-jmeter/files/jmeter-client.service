@@ -1,0 +1,15 @@
+[Unit]
+Description=run jmeter-client during boot
+After=network.target
+
+[Service]
+User=root
+Group=root
+Type=simple
+RemainAfterExit=yes
+ExecStart=/usr/local/jmeter/bin/jmeter-server.sh
+Restart=always
+LimitNOFILE=20480
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,36 @@
+---
+# tasks file for tigervnc
+
+# GUI環境パッケージのインストール
+- name: install_vnc
+  yum:
+    name:
+      - tigervnc-server
+      - expect
+    state: present
+
+- name: install_gui-env
+  shell: yum groupinstall "GNOME Desktop" -y
+
+# VNCのパスワードを設定
+- name: define_vncuser-passwd
+  become: yes
+  become_user: root
+  script: ../files/vncpasswd.sh
+
+# VNCの設定ファイルの設置
+- name: put_vncserver@.service
+  copy:
+    src: ../files/vncserver@.service_root
+    dest: /etc/systemd/system/vncserver@:1.service
+    owner: root
+    group: root
+    mode: 0644
+
+# VNCSERVERの再起動
+- name: restart_vncserver
+  systemd:
+    name: vncserver@:1.service
+    state: started
+    daemon_reload: yes
+    enabled: yes

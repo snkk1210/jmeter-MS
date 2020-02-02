@@ -1,0 +1,62 @@
+---
+# tasks file for jmeter
+- name: install_packages
+  yum:
+    name:
+      - httpd
+      - wget
+      - zip
+      - unzip
+      - java-1.8.0-openjdk.x86_64
+      - java-1.8.0-openjdk-devel.x86_64
+
+- name: confirm_orgdir
+  stat: path=/usr/local/jmeter
+  register: result_jmeter
+
+- name: get_jmeter
+  unarchive:
+    src: https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.1.zip
+    dest: /usr/local/
+    remote_src: yes
+  when: not result_jmeter.stat.exists
+
+- name: confirm_orgdir
+  stat: path=/usr/local/apache-jmeter-5.1
+  register: result_jmeter_org
+
+- name: rename_jmeter-dir
+  shell: mv /usr/local/apache-jmeter-5.1 /usr/local/jmeter
+  ignore_errors: yes
+  when: result_jmeter_org.stat.exists
+
+- name: put_start-controller_cui.sh
+  copy:
+    src: ../files/start-controller_cui.sh
+    dest: /usr/local/jmeter/bin/start-controller_cui.sh
+    owner: root
+    group: root
+    mode: 0755
+    backup: yes
+
+- name: put_jmeter.properties
+  copy:
+    src: ../files/jmeter.properties
+    dest: /usr/local/jmeter/bin/jmeter.properties
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+
+- name: change_user.properties
+  lineinfile:
+    dest: /usr/local/jmeter/bin/user.properties
+    regexp: "#server.rmi.ssl.disable=false"
+    line: "server.rmi.ssl.disable=true"
+    backup: yes
+
+- name: start_apache
+  systemd:
+    name: httpd
+    state: started
+    enabled: yes
