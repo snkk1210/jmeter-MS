@@ -1,5 +1,6 @@
 ---
 # tasks file for jmeter
+# 必要なパッケージのインストール
 - name: install_packages
   yum:
     name:
@@ -14,6 +15,7 @@
   stat: path=/usr/local/jmeter
   register: result_jmeter
 
+# Jmeterのインストール
 - name: get_jmeter
   unarchive:
     src: https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.1.zip
@@ -25,11 +27,13 @@
   stat: path=/usr/local/apache-jmeter-5.1
   register: result_jmeter_org
 
+# Jmeterのリネーム
 - name: rename_jmeter-dir
   shell: mv /usr/local/apache-jmeter-5.1 /usr/local/jmeter
   ignore_errors: yes
   when: result_jmeter_org.stat.exists
 
+# Jmeter起動用のシェルスクリプトを設置
 - name: put_start-controller_cui.sh
   copy:
     src: ../files/start-controller_cui.sh
@@ -39,6 +43,7 @@
     mode: 0755
     backup: yes
 
+# Jmeter設定ファイルを設置
 - name: put_jmeter.properties
   copy:
     src: ../files/jmeter.properties
@@ -48,6 +53,7 @@
     mode: 0644
     backup: yes
 
+# Jmeter設定ファイルを設置
 - name: change_user.properties
   lineinfile:
     dest: /usr/local/jmeter/bin/user.properties
@@ -55,6 +61,7 @@
     line: "server.rmi.ssl.disable=true"
     backup: yes
 
+# apacheの起動
 - name: start_apache
   systemd:
     name: httpd
