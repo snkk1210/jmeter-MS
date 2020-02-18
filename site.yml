@@ -5,7 +5,7 @@
   remote_user: vagrant
   become: yes
   roles:
-#    - common
+    - common
     - tigervnc
     - jmeter51
     - reboot
@@ -15,7 +15,7 @@
   remote_user: vagrant
   become: yes
   roles:
-#    - common
+    - common
     - jmeter51
     - slave-jmeter
     - reboot
