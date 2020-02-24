@@ -61,6 +61,25 @@
     line: "server.rmi.ssl.disable=true"
     backup: yes
 
+# HEAPメモリのサイズを調整
+#- name: change_HEAP_SIZE
+#  blockinfile:
+#    dest: /usr/local/jmeter/bin/jmeter
+#    regexp: '^: "${HEAP:="-Xms1g -Xmx1g'
+#    insertafter: ': "${HEAP:="-Xms1g -Xmx1g -XX:MaxMetaspaceSize=256m"}"'
+#    content: ': "${HEAP:="-Xms{{ heapm_size }} -Xmx{{ heapm_size }} -XX:MaxMetaspaceSize={{ heapm_size }}"}"'
+#    backup: yes
+
+# HEAPメモリのサイズを調整
+- name: change_HEAP_SIZE
+  replace:
+    dest: /usr/local/jmeter/bin/jmeter
+    regexp: '\DHEAP:="-Xms1g -Xmx1g -XX:MaxMetaspaceSize=256m"}"'
+    replace: 'HEAP:="-Xms{{ heapm_size }} -Xmx{{ heapm_size }} -XX:MaxMetaspaceSize={{ heapm_size }}"}"'
+    backup: yes
+
+
+
 # apacheの起動
 - name: start_apache
   systemd:

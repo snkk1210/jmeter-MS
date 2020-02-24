@@ -1,5 +1,5 @@
 [master]
-jmeter-master ansible_host=192.168.33.10
+jmeter-master ansible_host=192.168.33.20
 
 [slave]
-jmeter-node1 ansible_host=192.168.33.20
+#jmeter-node1 ansible_host=192.168.33.20
