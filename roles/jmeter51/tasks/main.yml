@@ -1,7 +1,7 @@
 ---
 # tasks file for jmeter
 # 必要なパッケージのインストール
-- name: install_packages
+- name: install packages
   yum:
     name:
       - httpd
@@ -16,25 +16,25 @@
   register: result_jmeter
 
 # Jmeterのインストール
-- name: get_jmeter
+- name: get jmeter
   unarchive:
     src: https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.1.zip
     dest: /usr/local/
     remote_src: yes
   when: not result_jmeter.stat.exists
 
-- name: confirm_orgdir
+- name: confirm orgdir
   stat: path=/usr/local/apache-jmeter-5.1
   register: result_jmeter_org
 
 # Jmeterのリネーム
-- name: rename_jmeter-dir
+- name: rename jmeterdir
   shell: mv /usr/local/apache-jmeter-5.1 /usr/local/jmeter
   ignore_errors: yes
   when: result_jmeter_org.stat.exists
 
 # Jmeter起動用のシェルスクリプトを設置
-- name: put_start-controller_cui.sh
+- name: put start-controller_cui.sh
   copy:
     src: ../files/start-controller_cui.sh
     dest: /usr/local/jmeter/bin/start-controller_cui.sh
@@ -44,7 +44,7 @@
     backup: yes
 
 # Jmeter設定ファイルを設置
-- name: put_jmeter.properties
+- name: put jmeter.properties
   copy:
     src: ../files/jmeter.properties
     dest: /usr/local/jmeter/bin/jmeter.properties
@@ -54,7 +54,7 @@
     backup: yes
 
 # Jmeter設定ファイルを設置
-- name: change_user.properties
+- name: change user.properties
   lineinfile:
     dest: /usr/local/jmeter/bin/user.properties
     regexp: "#server.rmi.ssl.disable=false"
@@ -62,7 +62,7 @@
     backup: yes
 
 # HEAPメモリのサイズを調整
-- name: change_HEAP_SIZE
+- name: change HEAP_SIZE
   replace:
     dest: /usr/local/jmeter/bin/jmeter
     regexp: '\DHEAP:="-Xms1g -Xmx1g -XX:MaxMetaspaceSize=256m"}"'
@@ -70,7 +70,7 @@
     backup: yes
 
 # apacheの起動
-- name: start_apache
+- name: start apache
   systemd:
     name: httpd
     state: started

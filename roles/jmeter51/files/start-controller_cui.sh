@@ -11,6 +11,3 @@ FILE_JMX=/usr/local/jmeter/bin/templates/build-webservice-test-plan.jmx
 mkdir -p ${LOGDIR}
 
 /usr/local/jmeter/bin/jmeter -Dsun.net.inetaddr.ttl=0 -n -t ${FILE_JMX} -j ${LOGDIR}/${OPTIME}.log -l ${LOGDIR}/${OPTIME}.jtl -e -o ${LOGDIR}/${OPTIME}_th${JMETER_THREAD}_tutorial_node${2}/ -r
-
-DATE=$(date +"%Y%m%d")
-ENDTIME=$(date +"%H:%M")

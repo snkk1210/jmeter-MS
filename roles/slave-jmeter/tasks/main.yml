@@ -2,7 +2,7 @@
 # tasks file for slave
 
 # スレーブサーバ自動起動設定
-- name: put_jmeter-server.sh
+- name: put jmeter-server.sh
   copy:
     src: ../files/jmeter-server.sh
     dest: /usr/local/jmeter/bin/jmeter-server.sh
@@ -11,7 +11,7 @@
     mode: 0755
 
 # Jmeterノードサービス化
-- name: put_jmeter-client.service
+- name: put jmeter-client.service
   copy:
     src: ../files/jmeter-client.service
     dest: /etc/systemd/system/jmeter-client.service
@@ -20,7 +20,7 @@
     mode: 0644
 
 # Jmeter設定変更
-- name: change_jmeter-server
+- name: change jmeter-server
   blockinfile:
     dest: /usr/local/jmeter/bin/jmeter-server
     insertafter: '^#RMI_HOST_DEF=-Djava.rmi.server.hostname=xxx.xxx.xxx.xxx'
@@ -28,8 +28,9 @@
     backup: yes
 
 # Jmeterサービス起動
-- name: start_jmeter-client.service
+- name: start jmeter-client.service
   systemd:
     name: jmeter-client.service
     state: started
+    daemon_reload: yes
     enabled: yes
