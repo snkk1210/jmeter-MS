@@ -13,7 +13,7 @@ git clone https://github.com/keisukesanuki/jmeter.git
 ```
 2. 作業ディレクトリに移動
 ```
-cd jmeter
+cd jmeter-MS
 ```
 3. プロビジョニング対象を定義
 ```
@@ -31,7 +31,7 @@ xxx.xxx.xxx.xxx ⇒ Slaveノード
 
 4. 実行ユーザを定義
 ```
-vi site.yml
+vi target.yml
 ```
 ⇒下記項目に実行ユーザを記述
 

@@ -12,7 +12,8 @@
       - java-1.8.0-openjdk-devel.x86_64
 
 - name: confirm_orgdir
-  stat: path=/usr/local/jmeter
+  stat: 
+    path: /usr/local/jmeter
   register: result_jmeter
 
 # Jmeterのインストール
@@ -24,12 +25,14 @@
   when: not result_jmeter.stat.exists
 
 - name: confirm orgdir
-  stat: path=/usr/local/apache-jmeter-5.1
+  stat: 
+    path: /usr/local/apache-jmeter-5.1
   register: result_jmeter_org
 
 # Jmeterのリネーム
 - name: rename jmeterdir
-  shell: mv /usr/local/apache-jmeter-5.1 /usr/local/jmeter
+  shell: mv apache-jmeter-5.1 jmeter
+    chdir=/usr/local/
   ignore_errors: yes
   when: result_jmeter_org.stat.exists
 

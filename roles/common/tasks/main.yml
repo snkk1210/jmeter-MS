@@ -105,5 +105,3 @@
   lineinfile:
      dest=/root/.bashrc
      line="HISTTIMEFORMAT='%Y-%m-%dT%T%z '"
-
-#- include: etckeeper.yml
