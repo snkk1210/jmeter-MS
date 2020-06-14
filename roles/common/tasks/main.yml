@@ -16,18 +16,18 @@
 # epelのインストール
 - name: epel-install
   yum:
-    name=https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    name: epel-release
 
 # selinuxのライブラリをインストール
 - name: install libselinux-python
   yum:
-    name=libselinux-python
-    state=present
+    name: libselinux-python
+    state: present
 
 # selinuxを無効化
 - name: disable-selinux
   selinux:
-    state=disabled
+    state: disabled
 
 # firewalldを無効化
 - name: disable_firewalld
@@ -105,3 +105,5 @@
   lineinfile:
      dest=/root/.bashrc
      line="HISTTIMEFORMAT='%Y-%m-%dT%T%z '"
+
+- include: host_change.yml

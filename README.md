@@ -7,15 +7,13 @@ Master/Slave形式のjmeter環境をデプロイするplaybookです。
 CentOS7
 
 ## 使い方
-1. git clone
+### 1. リポジトリをclone
 ```
 git clone https://github.com/keisukesanuki/jmeter.git
-```
-2. 作業ディレクトリに移動
-```
 cd jmeter-MS
 ```
-3. プロビジョニング対象を定義
+
+### 2. プロビジョニング対象を定義
 ```
 vi hosts
 ```
@@ -23,13 +21,13 @@ vi hosts
 
 ```
 [master] 
-xxx.xxx.xxx.xxx ⇒ Masterノード  
+jmeter-master ansible_host=xxx.xxx.xxx.xxx ⇒ Masterノード  
 [slave]  
-xxx.xxx.xxx.xxx ⇒ Slaveノード
+jmeter-node1 ansible_host=xxx.xxx.xxx.xxx ⇒ Slaveノード
+jmeter-node2 ansible_host=xxx.xxx.xxx.xxx ⇒ Slaveノード
 ```
 
-
-4. 実行ユーザを定義
+### 3. 実行ユーザを定義
 ```
 vi target.yml
 ```
@@ -38,7 +36,7 @@ vi target.yml
 ```
 remote_user:  xxxxxx
 ```
-5. VNC接続用のパスワードを定義
+### 4. VNC接続用のパスワードを定義
 
 ```
 vi roles/tigervnc/files/vncpasswd.sh
@@ -49,13 +47,50 @@ vi roles/tigervnc/files/vncpasswd.sh
 passwd=xxxxxx
 ```
 
-6. playbookの実行
+### 5. playbookの実行
+
+* パスワード
 ```
-ansible-playbook operation.yml --ask-pass
+ansible-playbook -i hosts target.yml --ask-pass
 ```
 
-or
+* 秘密鍵
 
 ```
-ansible-playbook operation.yml --private-key=xxxxxxx
+ansible-playbook -i hosts target.yml --private-key=xxxxxxx
+```
+
+## プロビジョニング後の対応
+
+### 1. MaterとSlaveの紐づけ
+
+```
+vi /usr/local/jmeter/bin/jmeter.properties
+```
+
+⇒下記項目に使用するslaveサーバのIPを記述する
+＊複数指定可(,で区切る)
+
+```
+remote_hosts=xxx.xxx.xxx.xxx,xxx.xxx.xxx.xxx,xxx.xxx.xxx.xxx
+```
+
+### 2.Materサーバのjmeter起動スクリプト調整
+
+```
+vi /usr/local/jmeter/bin/start-controller_cui.sh
+```
+⇒下記項目に使用するシナリオファイルを絶対パスで定義
+
+```
+FILE_JMX=
+```
+
+## トラシュー
+
+### vncserverが立ち上がらない時
+
+```
+rm /tmp/.X11-unix/*
+systemctl restart vncserver@:1.service
 ```

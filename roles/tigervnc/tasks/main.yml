@@ -1,6 +1,5 @@
 ---
 # tasks file for tigervnc
-
 # GUI環境パッケージのインストール
 - name: install vnc
   yum:

@@ -1,0 +1,8 @@
+---
+- name: /etc/hosts change
+  lineinfile:
+    dest: /etc/hosts
+    line: "127.0.0.1   {{ inventory_hostname }}"
+    insertafter: EOF
+    state: present
+    backup: yes 

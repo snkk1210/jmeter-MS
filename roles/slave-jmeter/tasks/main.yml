@@ -1,7 +1,6 @@
 ---
 # tasks file for slave
-
-# スレーブサーバ自動起動設定
+# jmeterノード起動スクリプト設置
 - name: put jmeter-server.sh
   copy:
     src: ../files/jmeter-server.sh
@@ -19,7 +18,7 @@
     group: root
     mode: 0644
 
-# Jmeter設定変更
+# Jmeterノード設定変更
 - name: change jmeter-server
   blockinfile:
     dest: /usr/local/jmeter/bin/jmeter-server
@@ -27,7 +26,7 @@
     content: RMI_HOST_DEF=-Djava.rmi.server.hostname={{ ansible_eth1.ipv4.address }}
     backup: yes
 
-# Jmeterサービス起動
+# Jmeterノードサービス起動
 - name: start jmeter-client.service
   systemd:
     name: jmeter-client.service

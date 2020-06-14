@@ -11,7 +11,7 @@
       - java-1.8.0-openjdk.x86_64
       - java-1.8.0-openjdk-devel.x86_64
 
-- name: confirm_orgdir
+- name: confirm stat jmeter_binary
   stat: 
     path: /usr/local/jmeter
   register: result_jmeter
@@ -24,13 +24,13 @@
     remote_src: yes
   when: not result_jmeter.stat.exists
 
-- name: confirm orgdir
+- name: confirm stat jmeter_orgdir
   stat: 
     path: /usr/local/apache-jmeter-5.1
   register: result_jmeter_org
 
 # Jmeterのリネーム
-- name: rename jmeterdir
+- name: rename jmeter_dir
   shell: mv apache-jmeter-5.1 jmeter
     chdir=/usr/local/
   ignore_errors: yes
@@ -56,7 +56,7 @@
     mode: 0644
     backup: yes
 
-# Jmeter設定ファイルを設置
+# Jmeterのssl通信を無効化
 - name: change user.properties
   lineinfile:
     dest: /usr/local/jmeter/bin/user.properties
