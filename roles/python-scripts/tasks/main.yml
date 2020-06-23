@@ -1,0 +1,29 @@
+---
+# tasks file for python-scripts
+- name: install python
+  yum:
+    name:
+      - python3
+      - python-devel
+      - jq
+
+- name: install gspread oauth2client
+  shell: pip3 install gspread oauth2client
+
+- name: put script
+  template:
+    src: ../templates/main.py
+    dest: /usr/local/bin/
+    owner: root
+    group: root
+    mode: 0755
+    backup: yes
+
+- name: put scret-key
+  template:
+    src: ../templates/sacred-drive.json
+    dest: /usr/local/jmeter/bin/
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
