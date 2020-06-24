@@ -9,6 +9,8 @@ import itertools
 
 # シークレットキーを絶対パスで指定
 SECRETJSON = "/usr/local/jmeter/bin/sacred-drive.json"
+# スプレッドシートキーを定義
+SPREADSHEET_KEY = '1hx8vE6N6EK5jGnknFPVv-_ejrwhhM-ywAnwpxowvDaQ'
 
 ############################################################################
 ## 関数
@@ -34,9 +36,6 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name(SECRETJSON, scope
 
 # Google APIにログイン
 gc = gspread.authorize(credentials)
-
-# スプレッドシートキーを定義
-SPREADSHEET_KEY = '1hx8vE6N6EK5jGnknFPVv-_ejrwhhM-ywAnwpxowvDaQ'
 
 # スプレッドシートのシート1を開く
 worksheet = gc.open_by_key(SPREADSHEET_KEY).sheet1
