@@ -86,6 +86,12 @@ vi /usr/local/jmeter/bin/start-controller_cui.sh
 FILE_JMX=
 ```
 
+### 3.jmeterの起動（負荷試験開始）
+
+```
+/usr/local/jmeter/bin/start-controller_cui.sh
+```
+
 ## トラシュー
 
 ### vncserverが立ち上がらない時
@@ -93,4 +99,33 @@ FILE_JMX=
 ```
 rm /tmp/.X11-unix/*
 systemctl restart vncserver@:1.service
+```
+
+## おまけ
+
+jmeterの結果をcsvに出力するpythonスクリプトを用意しています。  
+＊jmeter起動スクリプトと併せて実行されます。
+
+
+下記3点を事前に準備する必要があります。  
+・Google Drive API/Google Sheets APIの有効化  
+・秘密鍵(JSONデータ)のダウンロード  
+・スプレッドシートの共有設定
+
+諸々は下記からどうぞ！  
+https://console.developers.google.com/
+
+
+スクリプト内の下記2点は適宜環境に併せる必要があります。  
+・「SECRETJSON」にGoogle APIの秘密鍵ファイルを指定してください。  
+・「SPREADSHEET_KEY」に結果を出力するシートのキーを指定してください。  
+
+```
+vi /usr/local/bin/main.py
+```
+
+こちらのpythonスクリプトが必要なければ、jmeterの起動スクリプト内の下記項目をコメントアウトしてください。
+
+```
+/usr/local/bin/main.py ${LOGDIR}/${OPTIME}_th/statistics.csv
 ```
