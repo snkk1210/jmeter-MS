@@ -4,7 +4,6 @@ import gspread
 import json
 import csv
 import sys
-import csv
 import itertools
 
 # シークレットキーを絶対パスで指定
