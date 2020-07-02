@@ -12,12 +12,16 @@
 
 - name: put script
   template:
-    src: ../templates/main.py
+    src: ../templates/{{ item }}
     dest: /usr/local/bin/
     owner: root
     group: root
     mode: 0755
     backup: yes
+  with_items:
+    - main.py
+    - main2.py
+    - main3.py
 
 - name: put scret-key
   template:
@@ -27,3 +31,16 @@
     group: root
     mode: 0644
     backup: yes
+
+- name: put start script
+  template:
+    src: ../templates/{{ item }}
+    dest: /usr/local/jmeter/bin/
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  with_items:
+    - start-controller_cui.sh
+    - start-controller_cui2.sh
+    - start-controller_cui3.sh
