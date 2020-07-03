@@ -22,6 +22,7 @@
     - main.py
     - main2.py
     - main3.py
+    - main4.py
 
 - name: put scret-key
   template:
@@ -44,3 +45,4 @@
     - start-controller_cui.sh
     - start-controller_cui2.sh
     - start-controller_cui3.sh
+    - start-controller_cui4.sh
