@@ -2,6 +2,6 @@
 jmeter-master ansible_host=192.168.33.20
 
 [slave]
-#jmeter-node1 ansible_host=192.168.33.11
-#jmeter-node2 ansible_host=192.168.33.44
+jmeter-node1 ansible_host=192.168.33.21
+jmeter-node2 ansible_host=192.168.33.22
 #jmeter-node3 ansible_host=192.168.33.55
