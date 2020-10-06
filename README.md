@@ -103,7 +103,7 @@ systemctl restart vncserver@:1.service
 
 ## おまけ
 
-jmeterの結果をcsvに出力するpythonスクリプトを用意しています。  
+jmeterの結果をgoogleスプレッドシートに出力するpythonスクリプトを用意しています。  
 ＊jmeter起動スクリプトと併せて実行されます。
 
 
