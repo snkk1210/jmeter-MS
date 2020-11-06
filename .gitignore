@@ -1,0 +1,8 @@
+# mainのplaybook
+target.yml
+
+# hosts
+hosts
+
+# 変数ファイル
+group_vars/all.yml
