@@ -47,11 +47,11 @@ vi roles/tigervnc/files/vncpasswd.sh
 passwd=xxxxxx
 ```
 
-### 5. 変数ファイルをコピー
+### 5. HEAPメモリのサイズを定義
 
 ```
-cp -p group_vars/all.yml.example group_vars/all.ym
-vi group_vars/all.ym
+cp -p group_vars/all.yml.example group_vars/all.yml
+vi group_vars/all.yml
 ```
 ⇒下記項目にHEAPメモリのサイズを定義
 
