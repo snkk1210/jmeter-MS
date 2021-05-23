@@ -47,7 +47,19 @@ vi roles/tigervnc/files/vncpasswd.sh
 passwd=xxxxxx
 ```
 
-### 5. playbookの実行
+### 5. 変数ファイルをコピー
+
+```
+cp -p group_vars/all.yml.example group_vars/all.ym
+vi group_vars/all.ym
+```
+⇒下記項目にHEAPメモリのサイズを定義
+
+```
+heapm_size: 
+```
+
+### 6. playbookの実行
 
 * パスワード
 ```
