@@ -15,6 +15,7 @@ cd jmeter-MS
 
 ### 2. プロビジョニング対象を定義
 ```
+cp -p hosts.example hosts
 vi hosts
 ```
 ⇒プロビジョニング対象のIPアドレスをそれぞれ記述する＊複数記述可  
@@ -29,6 +30,7 @@ jmeter-node2 ansible_host=xxx.xxx.xxx.xxx ⇒ Slaveノード
 
 ### 3. 実行ユーザを定義
 ```
+cp -p target.yml.example target.yml
 vi target.yml
 ```
 ⇒下記項目に実行ユーザを記述
