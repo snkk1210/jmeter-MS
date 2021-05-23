@@ -9,7 +9,7 @@ CentOS7
 ## 使い方
 ### 1. リポジトリをclone
 ```
-git clone https://github.com/keisukesanuki/jmeter.git
+git clone https://github.com/keisukesanuki/jmeter-MS.git
 cd jmeter-MS
 ```
 
