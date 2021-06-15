@@ -25,7 +25,7 @@
     insertafter: '^#RMI_HOST_DEF=-Djava.rmi.server.hostname=xxx.xxx.xxx.xxx'
     content: RMI_HOST_DEF=-Djava.rmi.server.hostname={{ ansible_eth0.ipv4.address }}
     backup: yes
-  when: eth0 is defined
+  when: eth1 is undefined
 
 # Jmeterノード設定変更(eth1 参照)
 - name: change jmeter-server
@@ -34,7 +34,7 @@
     insertafter: '^#RMI_HOST_DEF=-Djava.rmi.server.hostname=xxx.xxx.xxx.xxx'
     content: RMI_HOST_DEF=-Djava.rmi.server.hostname={{ ansible_eth1.ipv4.address }}
     backup: yes
-  when: eth0 is undefined
+  when: eth1 is defined
 
 # Jmeterノードサービス起動
 - name: start jmeter-client.service
