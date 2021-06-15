@@ -63,23 +63,16 @@
     value: "{{ item.value }}"
     state: present
   with_items:
-    - { name: 'net.ipv4.ip_forward' ,value: '0' }
-    - { name: 'net.ipv4.conf.default.rp_filter' ,value: '1' }
-    - { name: 'net.ipv4.conf.default.accept_source_route' ,value: '0' }
-    - { name: 'kernel.sysrq' ,value: '0' }
-    - { name: 'kernel.core_uses_pid' ,value: '1' }
-    - { name: 'net.ipv4.tcp_syncookies' ,value: '1' }
-    - { name: 'kernel.msgmnb' ,value: '65536' }
-    - { name: 'kernel.msgmax' ,value: '65536' }
-    - { name: 'kernel.shmmax' ,value: '68719476736' }
-    - { name: 'kernel.shmall' ,value: '4294967296' }
-    - { name: 'net.ipv4.tcp_keepalive_intvl' ,value: '75' }
-    - { name: 'net.ipv4.tcp_keepalive_probes' ,value: '3' }
-    - { name: 'kernel.threads-max' ,value: '90000' }
-    - { name: 'net.ipv4.tcp_keepalive_time' ,value: '60' }
-    - { name: 'net.core.somaxconn' ,value: '1024' }
-    - { name: 'net.ipv4.tcp_fin_timeout' ,value: '30' }
-    - { name: 'fs.file-max' ,value: '412328' }
+    - { name: 'net.core.somaxconn',value: '1024' }
+    - { name: 'net.core.netdev_max_backlog',value: '5000' }
+    - { name: 'net.core.rmem_max',value: '16777216' }
+    - { name: 'net.core.wmem_max',value: '16777216' }
+    - { name: 'net.ipv4.tcp_wmem',value: '4096 12582912 16777216' }
+    - { name: 'net.ipv4.tcp_rmem',value: '4096 12582912 16777216' }
+    - { name: 'net.ipv4.tcp_max_syn_backlog',value: '8096' }
+    - { name: 'net.ipv4.tcp_slow_start_after_idle',value: '0' }
+    - { name: 'net.ipv4.tcp_tw_reuse',value: '1' }
+    - { name: 'net.ipv4.ip_local_port_range',value: '10240 65535' }
     - { name: 'vm.swappiness',value: '10' }
 
 # limits_conf変更
@@ -107,3 +100,4 @@
      line="HISTTIMEFORMAT='%Y-%m-%dT%T%z '"
 
 - include: host_change.yml
+- include: etckeeper_commit.yml
