@@ -18,13 +18,23 @@
     group: root
     mode: 0644
 
-# Jmeterノード設定変更
+# Jmeterノード設定変更(eth0 参照)
+- name: change jmeter-server
+  blockinfile:
+    dest: /usr/local/jmeter/bin/jmeter-server
+    insertafter: '^#RMI_HOST_DEF=-Djava.rmi.server.hostname=xxx.xxx.xxx.xxx'
+    content: RMI_HOST_DEF=-Djava.rmi.server.hostname={{ ansible_eth0.ipv4.address }}
+    backup: yes
+  when: eth0 is defined
+
+# Jmeterノード設定変更(eth1 参照)
 - name: change jmeter-server
   blockinfile:
     dest: /usr/local/jmeter/bin/jmeter-server
     insertafter: '^#RMI_HOST_DEF=-Djava.rmi.server.hostname=xxx.xxx.xxx.xxx'
     content: RMI_HOST_DEF=-Djava.rmi.server.hostname={{ ansible_eth1.ipv4.address }}
     backup: yes
+  when: eth0 is undefined
 
 # Jmeterノードサービス起動
 - name: start jmeter-client.service
