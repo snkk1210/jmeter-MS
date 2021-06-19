@@ -1,6 +1,6 @@
 ## 概要
 
-Master/Slave形式のjmeter環境をデプロイするplaybookです。
+Master / Slave形式の JMeter 環境をデプロイする playbook です。
 
 ## 動作環境
 
@@ -76,20 +76,20 @@ ansible-playbook -i hosts target.yml --private-key=xxxxxxx
 
 ## プロビジョニング後の対応
 
-### 1. MaterとSlaveの紐づけ
+### 1. Mater と Slave の紐づけ
 
 ```
 vi /usr/local/jmeter/bin/jmeter.properties
 ```
 
 ⇒下記項目に使用するslaveサーバのIPを記述する
-＊複数指定可(,で区切る)
+※ 複数指定可(,で区切る)
 
 ```
 remote_hosts=xxx.xxx.xxx.xxx,xxx.xxx.xxx.xxx,xxx.xxx.xxx.xxx
 ```
 
-### 2.Materサーバのjmeter起動スクリプト調整
+### 2.Materサーバの JMeter起動スクリプト調整
 
 ```
 vi /usr/local/jmeter/bin/start-controller_cui.sh
@@ -100,7 +100,7 @@ vi /usr/local/jmeter/bin/start-controller_cui.sh
 FILE_JMX=
 ```
 
-### 3.jmeterの起動（負荷試験開始）
+### 3.JMeterの起動（負荷試験開始）
 
 ```
 /usr/local/jmeter/bin/start-controller_cui.sh
@@ -108,7 +108,7 @@ FILE_JMX=
 
 ## トラシュー
 
-### vncserverが立ち上がらない時
+### vncserver が立ち上がらない時
 
 ```
 rm /tmp/.X11-unix/*
@@ -117,8 +117,8 @@ systemctl restart vncserver@:1.service
 
 ## おまけ
 
-jmeterの結果をgoogleスプレッドシートに出力するpythonスクリプトを用意しています。  
-＊jmeter起動スクリプトと併せて実行されます。
+JMeter の結果を googleスプレッドシート に出力する pythonスクリプトを用意しています。  
+※ JMeter起動スクリプトと併せて実行されます。
 
 
 下記3点を事前に準備する必要があります。  
@@ -138,7 +138,7 @@ https://console.developers.google.com/
 vi /usr/local/bin/main.py
 ```
 
-こちらのpythonスクリプトが必要なければ、jmeterの起動スクリプト内の下記項目をコメントアウトしてください。
+こちらの pythonスクリプトが必要なければ、JMeterの起動スクリプト内の下記項目をコメントアウトしてください。
 
 ```
 /usr/local/bin/main.py ${LOGDIR}/${OPTIME}_th/statistics.csv
