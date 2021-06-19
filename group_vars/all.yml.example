@@ -1,6 +1,3 @@
 ---
 # HEAPメモリのサイズを定義
 heapm_size: 256m
-
-# eth1 を使うか否か
-#eth1: true
