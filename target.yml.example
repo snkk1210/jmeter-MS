@@ -9,6 +9,7 @@
     - tigervnc
     - jmeter51
     - python-scripts
+    - minimum/httpd
     - reboot
 
 - name: apply slave configuration to slave nodes 

@@ -1,0 +1,7 @@
+---
+# 起動
+- name: httpd_start
+  service:
+    name=httpd
+    state=started
+    enabled=yes

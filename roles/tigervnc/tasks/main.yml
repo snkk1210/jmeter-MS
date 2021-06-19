@@ -11,6 +11,14 @@
 - name: install gui-env
   shell: yum groupinstall "GNOME Desktop" -y
 
+# firewalldを無効化
+- name: disable_firewalld
+  systemd:
+    name: firewalld
+    state: stopped
+    enabled: no
+  ignore_errors: yes
+
 # VNCのパスワードを設定
 - name: define vncuser-passwd
   become: yes
