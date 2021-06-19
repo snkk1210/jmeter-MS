@@ -1,0 +1,27 @@
+---
+# apacheインストール
+- name: install apache
+  yum:
+    name:
+      - httpd
+      #- mod_ssl
+    state: present
+
+- name: modify defconf
+  blockinfile:
+    dest: /etc/httpd/conf/httpd.conf
+    insertafter: '^#ServerName www.example.com:80$'
+    content: 'ServerName {{ inventory_hostname }}:80'
+
+- name: change parameter
+  template:
+    src: ../templates/{{ item }}
+    dest: /etc/httpd/conf.d/
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - mpm.conf
+    - security.conf
+
+- include: security.yml

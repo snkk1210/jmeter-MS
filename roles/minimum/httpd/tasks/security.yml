@@ -1,0 +1,12 @@
+---
+- name: modify index
+  lineinfile:
+    dest: "/etc/httpd/conf/httpd.conf"
+    state: present
+    regexp: "Options Indexes FollowSymLinks"
+    line: "Options -Indexes +FollowSymLinks"
+    backup: yes 
+
+- name: disable welcome.conf
+  shell: cat /dev/null > /etc/httpd/conf.d/welcome.conf
+  notify: httpd_start
