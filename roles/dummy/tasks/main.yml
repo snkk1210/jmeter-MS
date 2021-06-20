@@ -1,0 +1,10 @@
+---
+# tasks file for dummy
+- name: create dummy file
+  template:
+    src: ../templates/dummy.txt
+    dest: /var/tmp/dummy_{{ ansible_date_time.date }}.txt
+    owner: "{{ ansible_ssh_user }}"
+    group: "{{ ansible_ssh_user }}"
+    mode: 0644
+    backup: yes
