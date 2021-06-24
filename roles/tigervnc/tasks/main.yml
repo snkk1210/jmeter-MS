@@ -9,7 +9,7 @@
     state: present
 
 - name: install gui-env
-  shell: yum groupinstall "GNOME Desktop" -y --setopt=group_package_types=mandatory,default,optional
+  shell: yum groupinstall "GNOME Desktop" -y
 
 # firewalldを無効化
 - name: disable_firewalld
