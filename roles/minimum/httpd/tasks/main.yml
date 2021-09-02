@@ -4,16 +4,15 @@
   yum:
     name:
       - httpd
-      #- mod_ssl
     state: present
 
-- name: modify defconf
+- name: modify ServerName
   blockinfile:
     dest: /etc/httpd/conf/httpd.conf
     insertafter: '^#ServerName www.example.com:80$'
     content: 'ServerName {{ inventory_hostname }}:80'
 
-- name: change parameter
+- name: deploy mpm.conf and security.conf
   template:
     src: ../templates/{{ item }}
     dest: /etc/httpd/conf.d/
