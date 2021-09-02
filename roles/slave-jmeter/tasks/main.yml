@@ -1,7 +1,7 @@
 ---
-# tasks file for slave
-# jmeterノード起動スクリプト設置
-- name: put jmeter-server.sh
+# tasks file for slave-jmeter
+# JMeterノード 起動スクリプトを設置
+- name: deploy jmeter-server.sh script
   copy:
     src: ../files/jmeter-server.sh
     dest: /usr/local/jmeter/bin/jmeter-server.sh
@@ -9,8 +9,8 @@
     group: root
     mode: 0755
 
-# Jmeterノードサービス化
-- name: put jmeter-client.service
+# JMeterノード Unit ファイルを設置
+- name: deploy jmeter-client.service Unit file
   copy:
     src: ../files/jmeter-client.service
     dest: /etc/systemd/system/jmeter-client.service
@@ -18,8 +18,8 @@
     group: root
     mode: 0644
 
-# Jmeterノード設定変更(eth0 参照)
-- name: change jmeter-server
+# JMeterノード 設定変更 ( eth0 参照 )
+- name: change config jmeter-server eth0
   blockinfile:
     dest: /usr/local/jmeter/bin/jmeter-server
     insertafter: '^#RMI_HOST_DEF=-Djava.rmi.server.hostname=xxx.xxx.xxx.xxx'
@@ -27,8 +27,8 @@
     backup: yes
   when: ansible_eth0.ipv4.address is defined 
 
-# Jmeterノード設定変更(eth1 参照)
-- name: change jmeter-server
+# JMeterノード 設定変更 ( eth1 参照 )
+- name: change config jmeter-server eth1
   blockinfile:
     dest: /usr/local/jmeter/bin/jmeter-server
     insertafter: '^#RMI_HOST_DEF=-Djava.rmi.server.hostname=xxx.xxx.xxx.xxx'
@@ -36,8 +36,8 @@
     backup: yes
   when: ansible_eth1.ipv4.address is defined
 
-# Jmeterノード設定変更(ens5 参照)
-- name: change jmeter-server
+# JMeterノード 設定変更 ( ens5 参照 )
+- name: change config jmeter-server ens5
   blockinfile:
     dest: /usr/local/jmeter/bin/jmeter-server
     insertafter: '^#RMI_HOST_DEF=-Djava.rmi.server.hostname=xxx.xxx.xxx.xxx'
@@ -45,7 +45,7 @@
     backup: yes
   when: ansible_ens5.ipv4.address is defined
 
-# Jmeterノードサービス起動
+# JMeterノード サービス起動
 - name: start jmeter-client.service
   systemd:
     name: jmeter-client.service
