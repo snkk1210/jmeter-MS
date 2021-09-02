@@ -1,6 +1,7 @@
 ---
 # tasks file for tigervnc
-# GUI環境パッケージのインストール
+
+# tigervnc-server のインストール
 - name: install vnc
   yum:
     name:
@@ -8,25 +9,26 @@
       - expect
     state: present
 
-- name: install gui-env
+# GUI 周りのパッケージをインストール
+- name: install GNOME Desktop for GUI ENV
   shell: yum groupinstall "GNOME Desktop" -y --setopt=group_package_types=mandatory,default,optional
 
-# firewalldを無効化
-- name: disable_firewalld
+# firewalld を無効化
+- name: disable firewalld
   systemd:
     name: firewalld
     state: stopped
     enabled: no
   ignore_errors: yes
 
-# VNCのパスワードを設定
-- name: define vncuser-passwd
+# VNC パスワード設定スクリプトを実行
+- name: run vncpasswd.sh script for define password
   become: yes
   become_user: root
   script: ../files/vncpasswd.sh
 
-# VNCの設定ファイルの設置
-- name: put vncserver@.service
+# VNC 設定ファイルの設置
+- name: deploy vncserver@.service Unit file
   copy:
     src: ../files/vncserver@.service_root
     dest: /etc/systemd/system/vncserver@:1.service
@@ -34,8 +36,8 @@
     group: root
     mode: 0644
 
-# VNCSERVERの再起動
-- name: restart vncserver
+# VNC 起動
+- name: start vncserver
   systemd:
     name: vncserver@:1.service
     state: started
