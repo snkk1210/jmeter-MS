@@ -6,3 +6,6 @@ hosts
 
 # 変数ファイル
 group_vars/all.yml
+
+# 秘密鍵
+*.pem
