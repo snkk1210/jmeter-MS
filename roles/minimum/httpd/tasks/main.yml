@@ -24,3 +24,10 @@
     - security.conf
 
 - include: security.yml
+
+- name: start apache
+  systemd:
+    name: httpd
+    state: started
+    daemon_reload: yes
+    enabled: yes
