@@ -1,10 +1,10 @@
 ---
-# tasks file for jmeter
-# 必要なパッケージのインストール
-- name: install packages
+# tasks file for jmeter51
+
+# JMeter 構築に必要なパッケージの導入
+- name: install packages for JMeter
   yum:
     name:
-      - httpd
       - wget
       - zip
       - unzip
@@ -12,33 +12,33 @@
       - java-1.8.0-openjdk-devel.x86_64
       - jq
 
-- name: confirm stat jmeter_binary
+- name: confirm stat /usr/local/jmeter directory
   stat: 
     path: /usr/local/jmeter
-  register: result_jmeter
+  register: jmeter_directory
 
-# Jmeterのインストール
-- name: get jmeter
+# JMeter インストール
+- name: install JMeter binary
   unarchive:
     src: https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.1.zip
     dest: /usr/local/
     remote_src: yes
-  when: not result_jmeter.stat.exists
+  when: not jmeter_directory.stat.exists
 
-- name: confirm stat jmeter_orgdir
+- name: confirm stat /usr/local/apache-jmeter-5.1 directory
   stat: 
     path: /usr/local/apache-jmeter-5.1
-  register: result_jmeter_org
+  register: original_jmeter_directory
 
-# Jmeterのリネーム
-- name: rename jmeter_dir
+# JMeter ディレクトリのリネーム
+- name: rename apache-jmeter-5.1 to jmeter
   shell: mv apache-jmeter-5.1 jmeter
     chdir=/usr/local/
   ignore_errors: yes
-  when: result_jmeter_org.stat.exists
+  when: original_jmeter_directory.stat.exists
 
-# Jmeter起動用のシェルスクリプトを設置
-- name: put start-controller_cui.sh
+# JMeter 起動用のシェルスクリプトを設置
+- name: deploy start-controller_cui.sh script
   copy:
     src: ../files/start-controller_cui.sh
     dest: /usr/local/jmeter/bin/start-controller_cui.sh
@@ -47,8 +47,8 @@
     mode: 0755
     backup: yes
 
-# Jmeter設定ファイルを設置
-- name: put jmeter.properties
+# JMeter 設定ファイルを設置
+- name: deploy jmeter.properties
   copy:
     src: ../files/jmeter.properties
     dest: /usr/local/jmeter/bin/jmeter.properties
@@ -57,25 +57,18 @@
     mode: 0644
     backup: yes
 
-# Jmeterのssl通信を無効化
-- name: change user.properties
+# JMeter ssl通信を無効化
+- name: disable ssl user.properties
   lineinfile:
     dest: /usr/local/jmeter/bin/user.properties
     regexp: "#server.rmi.ssl.disable=false"
     line: "server.rmi.ssl.disable=true"
     backup: yes
 
-# HEAPメモリのサイズを調整
+# HEAPメモリ のサイズを調整
 - name: change HEAP_SIZE
   replace:
     dest: /usr/local/jmeter/bin/jmeter
     regexp: '\DHEAP:="-Xms1g -Xmx1g -XX:MaxMetaspaceSize=256m"}"'
     replace: 'HEAP:="-Xms{{ heapm_size }} -Xmx{{ heapm_size }} -XX:MaxMetaspaceSize={{ heapm_size }}"}"'
     backup: yes
-
-# apacheの起動
-- name: start apache
-  systemd:
-    name: httpd
-    state: started
-    enabled: yes
