@@ -139,8 +139,8 @@ https://console.developers.google.com/
 vi /usr/local/bin/main.py
 ```
 
-こちらの python スクリプトが必要なければ、JMeter の起動スクリプト内の下記項目をコメントアウトしてください。
+JMeter 起動スクリプトの下記項目をコメントインしてください。
 
 ```
-/usr/local/bin/main.py ${LOGDIR}/${OPTIME}_th/statistics.csv
+#/usr/local/bin/main.py ${LOGDIR}/${OPTIME}_th/statistics.csv
 ```
