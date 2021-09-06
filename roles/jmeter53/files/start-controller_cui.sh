@@ -17,4 +17,4 @@ mkdir -p ${LOGDIR}
 cat ${LOGDIR}/${OPTIME}_th${JMETER_THREAD}${2}/statistics.json | jq  -r ". [] | [.transaction,.sampleCount,.errorCount,.errorPct,.meanResTime,.minResTime,.maxResTime,.pct1ResTime,.pct2ResTime,.pct3ResTime,.throughput,.receivedKBytesPerSec,.sentKBytesPerSec] | @csv" | grep "Total" > ${LOGDIR}/${OPTIME}_th${JMETER_THREAD}${2}/statistics.csv
 
 # スプレッドシートに結果を出力
-/usr/local/bin/main.py ${LOGDIR}/${OPTIME}_th/statistics.csv
+#/usr/local/bin/main.py ${LOGDIR}/${OPTIME}_th/statistics.csv

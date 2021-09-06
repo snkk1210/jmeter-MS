@@ -1,9 +1,9 @@
 slave-jmeter
 =========
 
-- jmeter-slave起動スクリプト設置
-- jmeter-slaveサービス設定ファイル設置
-- jmeter-slave設定ファイル修正
+- JMeterノード 起動スクリプト設置
+- JMeterノード Unitファイル設置
+- JMeterノード 設定ファイル修正
 
 Requirements
 ------------

@@ -1,11 +1,11 @@
 tigervnc
 =========
 
-- tigervnc-serverインストール
-- expectインストール
-- GUI環境セットアップ
-- vncユーザセットアップ
-- vncサービスセットアップ
+- tigervnc-server インストール
+- expect インストール
+- GUI環境 のセットアップ
+- vnc ユーザのセットアップ
+- vnc Unit ファイルの設置
 
 Requirements
 ------------
