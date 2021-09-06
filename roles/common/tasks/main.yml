@@ -1,20 +1,20 @@
 ---
 # yum update
+
 # 最新版ソフトウェアの適用
-- name: yum_groupinstall
+- name: yum groupinstall Development tools
   yum:
-    name="@Development tools"
-    state=present
+    name: "@Development tools"
+    state: present
 
 # yum update
-- name: yum_update
+- name: yum update
   yum:
-    name=*
-    state=latest
-    security=yes
+    name: "*"
+    state: latest
 
 # epelのインストール
-- name: epel-install
+- name: install epel-release
   yum:
     name: epel-release
 
@@ -25,12 +25,12 @@
     state: present
 
 # selinuxを無効化
-- name: disable-selinux
+- name: disable selinux
   selinux:
     state: disabled
 
 # firewalldを無効化
-- name: disable_firewalld
+- name: disable firewalld
   systemd:
     name: firewalld
     state: stopped
@@ -38,7 +38,7 @@
   ignore_errors: yes
 
 # 追加パッケージを導入
-- name: add_packages
+- name: install common packages
   yum:
     name:
       - net-tools
@@ -53,12 +53,12 @@
       - etckeeper
     state: present
 
-# hostname変更
-- name: hostname_change
+# hostname 変更
+- name: change hostname
   hostname: name="{{ inventory_hostname }}"
 
-# sysctl変更
-- name: sysctl_set
+# sysctl 変更
+- name: optimize kernel parameters
   sysctl:
     name: "{{ item.name }}"
     value: "{{ item.value }}"
@@ -76,8 +76,8 @@
     - { name: 'net.ipv4.ip_local_port_range',value: '10240 65535' }
     - { name: 'vm.swappiness',value: '10' }
 
-# limits_conf変更
-- name: ulimit_change
+# limits_conf 変更
+- name: optimize ulimit
   pam_limits:
     domain: "{{ item.domain }}"
     limit_type: "{{ item.limit_type }}"
@@ -89,13 +89,13 @@
     - { domain: '*' ,limit_type: 'soft' }
     - { domain: '*' ,limit_type: 'hard' }
 
-# timezone変更
-- name: timezone_change
+# timezone 変更
+- name: change timezone to Asia/Tokyo
   timezone:
     name: Asia/Tokyo
 
-# history時刻表示追加
-- name: histry_time_add
+# history 時刻表示追加
+- name: modify /root/.bashrc to add HISTTIMEFORMAT
   lineinfile:
      dest=/root/.bashrc
      line="HISTTIMEFORMAT='%Y-%m-%dT%T%z '"
