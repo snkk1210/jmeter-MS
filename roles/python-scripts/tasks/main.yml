@@ -29,4 +29,4 @@
     backup: yes
   with_items:
     - start-controller_cui.sh
-    - main.py
+    - csv2gspread.py
