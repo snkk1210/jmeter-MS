@@ -10,22 +10,7 @@
 - name: install gspread oauth2client
   shell: pip3 install gspread oauth2client
 
-- name: put script
-  template:
-    src: ../templates/{{ item }}
-    dest: /usr/local/bin/
-    owner: root
-    group: root
-    mode: 0755
-    backup: yes
-  with_items:
-    - main.py
-    - main2.py
-    - main3.py
-    - main4.py
-    - main5.py
-
-- name: put scret-key
+- name: deploy scret-key
   template:
     src: ../templates/sacred-drive.json
     dest: /usr/local/jmeter/bin/
@@ -34,7 +19,7 @@
     mode: 0644
     backup: yes
 
-- name: put start script
+- name: deploy scripts
   template:
     src: ../templates/{{ item }}
     dest: /usr/local/jmeter/bin/
@@ -44,8 +29,4 @@
     backup: yes
   with_items:
     - start-controller_cui.sh
-    - start-controller_cui2.sh
-    - start-controller_cui3.sh
-    - start-controller_cui4.sh
-    - start-controller_cui5.sh
-    - start-controller_cui6.sh
+    - csv2gspread.py
