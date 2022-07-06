@@ -45,6 +45,15 @@
     backup: yes
   when: ansible_ens5.ipv4.address is defined
 
+# JMeterノード 設定変更 ( enp0s8 参照 )
+- name: change config jmeter-server enp0s8
+  blockinfile:
+    dest: /usr/local/jmeter/bin/jmeter-server
+    insertafter: '^#RMI_HOST_DEF=-Djava.rmi.server.hostname=xxx.xxx.xxx.xxx'
+    content: RMI_HOST_DEF=-Djava.rmi.server.hostname={{ ansible_enp0s8.ipv4.address }}
+    backup: yes
+  when: ansible_enp0s8.ipv4.address is defined
+
 # JMeterノード サービス起動
 - name: start jmeter-client.service
   systemd:

@@ -6,6 +6,7 @@
       - python3
       - python-devel
       - jq
+  ignore_errors: yes
 
 - name: install gspread oauth2client
   shell: pip3 install gspread oauth2client

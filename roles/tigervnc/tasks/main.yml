@@ -9,9 +9,17 @@
       - expect
     state: present
 
-# GUI 周りのパッケージをインストール
-- name: install GNOME Desktop for GUI ENV
+# GUI 周りのパッケージをインストール (RHEL7)
+- name: install GNOME Desktop for GUI ENV RHEL7
   shell: yum groupinstall "GNOME Desktop" -y --setopt=group_package_types=mandatory,default,optional
+  when:
+    - ansible_facts['distribution_major_version'] == "7"
+
+# GUI 周りのパッケージをインストール (RHEL8)
+- name: install GNOME Desktop for GUI ENV RHEL8
+  shell: dnf groupinstall "Server with GUI" -y
+  when:
+    - ansible_facts['distribution_major_version'] == "8"
 
 # firewalld を無効化
 - name: disable firewalld
