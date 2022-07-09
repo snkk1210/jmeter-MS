@@ -23,6 +23,7 @@
   yum:
     name: libselinux-python
     state: present
+  ignore_errors: yes
 
 # selinuxを無効化
 - name: disable selinux
