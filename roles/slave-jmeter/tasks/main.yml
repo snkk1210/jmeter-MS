@@ -10,10 +10,10 @@
     mode: 0755
 
 # JMeterノード Unit ファイルを設置
-- name: deploy jmeter-client.service Unit file
+- name: deploy jmeter-node.service Unit file
   copy:
-    src: ../files/jmeter-client.service
-    dest: /etc/systemd/system/jmeter-client.service
+    src: ../files/jmeter-node.service
+    dest: /etc/systemd/system/jmeter-node.service
     owner: root
     group: root
     mode: 0644
@@ -55,9 +55,9 @@
   when: ansible_enp0s8.ipv4.address is defined
 
 # JMeterノード サービス起動
-- name: start jmeter-client.service
+- name: start jmeter-node.service
   systemd:
-    name: jmeter-client.service
+    name: jmeter-node.service
     state: started
     daemon_reload: yes
     enabled: yes
