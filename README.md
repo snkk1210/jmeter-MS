@@ -1,10 +1,11 @@
 ## 概要
 
-Master / Slave形式の JMeter 環境をデプロイする playbook です。
+Master / Slave 形式の JMeter クラスター環境をデプロイする Playbook です。
 
 ## 動作環境
 
-CentOS7
+- CentOS7
+- AlmaLinux8
 
 ## 使い方
 ### 1. リポジトリを clone
@@ -18,7 +19,7 @@ cd jmeter-MS
 cp -p hosts.example hosts
 vi hosts
 ```
-⇒ プロビジョニング対象の IPアドレス をそれぞれ記述する  
+⇒ プロビジョニング対象の IP アドレス をそれぞれ記述する  
 ※ 複数記述可  
 
 ```
@@ -34,7 +35,7 @@ jmeter-node2 ansible_host=xxx.xxx.xxx.xxx ⇒ Slaveノード
 cp -p target.yml.example target.yml
 vi target.yml
 ```
-⇒下記項目に実行ユーザを記述
+⇒ 下記項目に実行ユーザを記述
 
 ```
 remote_user:  xxxxxx
@@ -44,25 +45,25 @@ remote_user:  xxxxxx
 ```
 vi roles/tigervnc/files/vncpasswd.sh
 ```
-⇒下記項目に VNC 接続用のパスワードを定義
+⇒ 下記項目に VNC 接続用のパスワードを定義
 
 ```
 passwd=xxxxxx
 ```
 
-### 5. HEAPメモリ のサイズを定義
+### 5. HEAP メモリ のサイズを定義
 
 ```
 cp -p group_vars/all.yml.example group_vars/all.yml
 vi group_vars/all.yml
 ```
-⇒下記項目に HEAPメモリ のサイズを定義
+⇒ 下記項目に HEAPメモリ のサイズを定義
 
 ```
 heapm_size: 
 ```
 
-### 6. playbook の実行
+### 6. Playbook の実行
 
 * パスワード
 ```
@@ -90,7 +91,7 @@ vi /usr/local/jmeter/bin/jmeter.properties
 remote_hosts=xxx.xxx.xxx.xxx,xxx.xxx.xxx.xxx,xxx.xxx.xxx.xxx
 ```
 
-### 2.Mater サーバの JMeter 起動スクリプト調整
+### 2. Mater サーバの JMeter 起動スクリプト調整
 
 ```
 vi /usr/local/jmeter/bin/start-controller_cui.sh
@@ -101,7 +102,7 @@ vi /usr/local/jmeter/bin/start-controller_cui.sh
 FILE_JMX=
 ```
 
-### 3.JMeter の起動（負荷試験開始）
+### 3. JMeter の起動（負荷試験開始）
 
 ```
 /usr/local/jmeter/bin/start-controller_cui.sh
@@ -118,12 +119,12 @@ systemctl restart vncserver@:1.service
 
 ## おまけ
 
-JMeter の結果を google スプレッドシート に出力する python スクリプトを用意しています。  
-※ JMeter起動スクリプトと併せて実行されます。
+JMeter の結果を google スプレッドシート に出力する Python スクリプトを用意しています。  
+※ JMeter 起動スクリプトと併せて実行されます。
 
 
 下記3点を事前に準備する必要があります。  
-・Google Drive API/Google Sheets API の有効化  
+・Google Drive API / Google Sheets API の有効化  
 ・秘密鍵( JSONデータ )のダウンロード  
 ・スプレッドシートの共有設定
 
