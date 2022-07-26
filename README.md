@@ -24,10 +24,10 @@ vi hosts
 
 ```
 [master] 
-jmeter-master ansible_host=xxx.xxx.xxx.xxx ⇒ Masterノード  
+jmeter-master ansible_host=xxx.xxx.xxx.xxx ⇒ Master ノード  
 [slave]  
-jmeter-node1 ansible_host=xxx.xxx.xxx.xxx ⇒ Slaveノード
-jmeter-node2 ansible_host=xxx.xxx.xxx.xxx ⇒ Slaveノード
+jmeter-node1 ansible_host=xxx.xxx.xxx.xxx ⇒ Slave ノード
+jmeter-node2 ansible_host=xxx.xxx.xxx.xxx ⇒ Slave ノード
 ```
 
 ### 3. 実行ユーザを定義
