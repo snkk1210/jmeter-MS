@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.5">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="zabbix_ load_scenario" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+          <collectionProp name="Arguments.arguments"/>
+        </elementProp>
+        <stringProp name="HTTPSampler.domain">192.168.33.11</stringProp>
+        <stringProp name="HTTPSampler.port">80</stringProp>
+        <stringProp name="HTTPSampler.protocol">http</stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+        <stringProp name="HTTPSampler.path"></stringProp>
+        <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+        <stringProp name="HTTPSampler.response_timeout"></stringProp>
+      </ConfigTestElement>
+      <hashTree/>
+      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+        <collectionProp name="HeaderManager.headers">
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Content-Type</stringProp>
+            <stringProp name="Header.value">application/json-rpc</stringProp>
+          </elementProp>
+        </collectionProp>
+      </HeaderManager>
+      <hashTree/>
+      <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="Initialize Script" enabled="true">
+        <boolProp name="resetInterpreter">false</boolProp>
+        <stringProp name="parameters"></stringProp>
+        <stringProp name="filename"></stringProp>
+        <stringProp name="script">/** 
+ * 各変数の初期化
+ * 定数値等を設定
+ * 
+ * initialize Script
+ * Bean Shell PreProcessor
+ */
+// Execute mode
+ vars.put(&quot;MODE&quot;, &quot;debug&quot;);
+//vars.put(&quot;MODE&quot;, &quot;release&quot;);
+
+/** 
+ * ログイン ユーザ
+ */
+// login User
+vars.put(&quot;username&quot;, &quot;Admin&quot;);
+
+// Login Password
+vars.put(&quot;password&quot;, &quot;zabbix&quot;);
+</stringProp>
+      </BeanShellPreProcessor>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group_S01" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">120</stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="user.login" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${request}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/zabbix/api_jsonrpc.php</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.json.JSONObject;
+import org.json.JSONArray;
+
+// param JSONObject 生成
+JSONObject paramObject = new JSONObject();
+
+paramObject.put(&quot;user&quot;, vars.get(&quot;username&quot;));
+paramObject.put(&quot;password&quot;, vars.get(&quot;password&quot;));
+
+JSONArray params = new JSONArray();
+params.put(paramObject);
+
+JSONObject param = params.getJSONObject(0);
+
+// POST Body (JSON) 生成 
+JSONObject objRequest = new JSONObject();
+
+//objRequest.put(&quot;auth&quot;, null);
+objRequest.put(&quot;method&quot;, &quot;user.login&quot;);
+objRequest.put(&quot;id&quot;, 1);
+objRequest.put(&quot;params&quot;, param);
+objRequest.put(&quot;jsonrpc&quot;, &quot;2.0&quot;);
+
+if (vars.get(&quot;MODE&quot;) == &quot;debug&quot;) {
+    log.info(objRequest.toString());
+}
+
+// データをセット
+vars.put(&quot;request&quot;, objRequest.toString());</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+          <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.json.JSONObject;
+
+if (vars.get(&quot;MODE&quot;) == &quot;debug&quot;) { log.info(&quot;-- Requested Sample(Pre): &quot; + prev.getSampleLabel()); }
+
+// レスポンスを取得
+JSONObject json = new JSONObject(prev.getResponseDataAsString());
+
+// レスポンスから 認証キー を取得
+var result = json.getString(&quot;result&quot;);
+
+if (vars.get(&quot;MODE&quot;) == &quot;debug&quot;) { 
+	log.info(result.toString());
+}
+
+// 変数セット
+vars.put(&quot;auth_key&quot;, result.toString());</stringProp>
+          </BeanShellPostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="host.get" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${request}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/zabbix/api_jsonrpc.php</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.json.JSONObject;
+import org.json.JSONArray;
+
+// param JSONObject 生成
+JSONObject paramObject = new JSONObject();
+
+paramObject.put(&quot;output&quot;, &quot;extend&quot;);
+
+JSONArray params = new JSONArray();
+params.put(paramObject);
+
+JSONObject param = params.getJSONObject(0);
+
+// POST Body (JSON) 生成 
+JSONObject objRequest = new JSONObject();
+
+objRequest.put(&quot;auth&quot;, vars.get(&quot;auth_key&quot;));
+objRequest.put(&quot;method&quot;, &quot;host.get&quot;);
+objRequest.put(&quot;id&quot;, 1);
+objRequest.put(&quot;params&quot;, param);
+objRequest.put(&quot;jsonrpc&quot;, &quot;2.0&quot;);
+
+if (vars.get(&quot;MODE&quot;) == &quot;debug&quot;) {
+    log.info(objRequest.toString());
+}
+
+// データのセット
+vars.put(&quot;request&quot;, objRequest.toString());</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="alert.get" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${request}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/zabbix/api_jsonrpc.php</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.json.JSONObject;
+import org.json.JSONArray;
+
+// param JSONObject 生成
+JSONObject paramObject = new JSONObject();
+
+paramObject.put(&quot;output&quot;, &quot;extend&quot;);
+paramObject.put(&quot;limit&quot;, &quot;3&quot;);
+paramObject.put(&quot;sortfield&quot;, &quot;alertid&quot;);
+paramObject.put(&quot;sortorder&quot;, &quot;DESC&quot;);
+
+JSONArray params = new JSONArray();
+params.put(paramObject);
+
+JSONObject param = params.getJSONObject(0);
+
+// POST Body (JSON) 生成 
+JSONObject objRequest = new JSONObject();
+
+objRequest.put(&quot;auth&quot;, vars.get(&quot;auth_key&quot;));
+objRequest.put(&quot;method&quot;, &quot;alert.get&quot;);
+objRequest.put(&quot;id&quot;, 1);
+objRequest.put(&quot;params&quot;, param);
+objRequest.put(&quot;jsonrpc&quot;, &quot;2.0&quot;);
+
+if (vars.get(&quot;MODE&quot;) == &quot;debug&quot;) {
+    log.info(objRequest.toString());
+}
+
+// データのセット
+vars.put(&quot;request&quot;, objRequest.toString());</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="hostgroup.get" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${request}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/zabbix/api_jsonrpc.php</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.json.JSONObject;
+import org.json.JSONArray;
+
+// filter JSONObject 生成
+JSONObject filterObject = new JSONObject();
+
+filterObject.put(&quot;name&quot;, &quot;Discovered hosts&quot;);
+
+JSONArray filters = new JSONArray();
+filters.put(filterObject);
+
+JSONObject filter = filters.getJSONObject(0);
+
+// param JSONObject 生成
+JSONObject paramObject = new JSONObject();
+
+paramObject.put(&quot;filter&quot;, filter);
+
+JSONArray params = new JSONArray();
+params.put(paramObject);
+
+JSONObject param = params.getJSONObject(0);
+
+// POST Body (JSON) 生成 
+JSONObject objRequest = new JSONObject();
+
+objRequest.put(&quot;auth&quot;, vars.get(&quot;auth_key&quot;));
+objRequest.put(&quot;method&quot;, &quot;hostgroup.get&quot;);
+objRequest.put(&quot;id&quot;, 1);
+objRequest.put(&quot;params&quot;, param);
+objRequest.put(&quot;jsonrpc&quot;, &quot;2.0&quot;);
+
+if (vars.get(&quot;MODE&quot;) == &quot;debug&quot;) {
+    log.info(objRequest.toString());
+}
+
+// データのセット
+vars.put(&quot;request&quot;, objRequest.toString());</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+          <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.json.JSONObject;
+
+if (vars.get(&quot;MODE&quot;) == &quot;debug&quot;) { log.info(&quot;-- Requested Sample(Pre): &quot; + prev.getSampleLabel()); }
+
+// レスポンス取得
+JSONObject json = new JSONObject(prev.getResponseDataAsString());
+
+var result = json.getJSONArray(&quot;result&quot;);
+
+JSONObject jObj1 = result.getJSONObject(0);
+
+var groupid = jObj1.getString(&quot;groupid&quot;);
+
+if (vars.get(&quot;MODE&quot;) == &quot;debug&quot;) { 
+	log.info(groupid.toString());
+}
+
+// 変数セット
+vars.put(&quot;groupid&quot;, groupid.toString());</stringProp>
+          </BeanShellPostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="host.create" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${request}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/zabbix/api_jsonrpc.php</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.json.JSONObject;
+import org.json.JSONArray;
+import java.util.Random;
+
+// 0 ～ 999999999 の数値を取得
+Random rand = new Random();
+long user_id = rand.nextInt(999999999);
+
+// groups JSONObject 生成
+JSONObject groupsObject = new JSONObject();
+
+groupsObject.put(&quot;groupid&quot;, vars.get(&quot;groupid&quot;));
+
+JSONArray groups = new JSONArray();
+groups.put(groupsObject);
+
+JSONObject group = groups.getJSONObject(0);
+
+// interfaces JSONObject 生成
+JSONObject interfacesObject = new JSONObject();
+
+interfacesObject.put(&quot;type&quot;, 1);
+interfacesObject.put(&quot;main&quot;, 1);
+interfacesObject.put(&quot;useip&quot;, 1);
+interfacesObject.put(&quot;ip&quot;, &quot;192.168.10.100&quot;);
+interfacesObject.put(&quot;dns&quot;, &quot;&quot;);
+interfacesObject.put(&quot;port&quot;, &quot;10050&quot;);
+
+JSONArray interfaces = new JSONArray();
+interfaces.put(interfacesObject);
+
+JSONObject interfac = interfaces.getJSONObject(0);
+
+
+// param JSONObject 生成
+JSONObject paramObject = new JSONObject();
+
+paramObject.put(&quot;host&quot;, &quot;Test Server&quot; + user_id.toString());
+paramObject.put(&quot;groups&quot;, group);
+paramObject.put(&quot;interfaces&quot;, interfac);
+
+JSONArray params = new JSONArray();
+params.put(paramObject);
+
+JSONObject param = params.getJSONObject(0);
+
+// POST Body (JSON) 生成 
+JSONObject objRequest = new JSONObject();
+
+objRequest.put(&quot;auth&quot;, vars.get(&quot;auth_key&quot;));
+objRequest.put(&quot;method&quot;, &quot;host.create&quot;);
+objRequest.put(&quot;id&quot;, 1);
+objRequest.put(&quot;params&quot;, param);
+objRequest.put(&quot;jsonrpc&quot;, &quot;2.0&quot;);
+
+if (vars.get(&quot;MODE&quot;) == &quot;debug&quot;) {
+    log.info(objRequest.toString());
+}
+
+// データのセット
+vars.put(&quot;request&quot;, objRequest.toString());</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="host.get" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${request}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/zabbix/api_jsonrpc.php</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.json.JSONObject;
+import org.json.JSONArray;
+
+// param JSONObject 生成
+JSONObject paramObject = new JSONObject();
+
+paramObject.put(&quot;output&quot;, &quot;extend&quot;);
+
+JSONArray params = new JSONArray();
+params.put(paramObject);
+
+JSONObject param = params.getJSONObject(0);
+
+// POST Body (JSON) 生成 
+JSONObject objRequest = new JSONObject();
+
+objRequest.put(&quot;auth&quot;, vars.get(&quot;auth_key&quot;));
+objRequest.put(&quot;method&quot;, &quot;host.get&quot;);
+objRequest.put(&quot;id&quot;, 1);
+objRequest.put(&quot;params&quot;, param);
+objRequest.put(&quot;jsonrpc&quot;, &quot;2.0&quot;);
+
+if (vars.get(&quot;MODE&quot;) == &quot;debug&quot;) {
+    log.info(objRequest.toString());
+}
+
+// データのセット
+vars.put(&quot;request&quot;, objRequest.toString());</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+          <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.json.JSONObject;
+import java.util.Random;
+
+if (vars.get(&quot;MODE&quot;) == &quot;debug&quot;) { log.info(&quot;-- Requested Sample(Pre): &quot; + prev.getSampleLabel()); }
+
+// レスポンス取得
+JSONObject json = new JSONObject(prev.getResponseDataAsString());
+
+var result = json.getJSONArray(&quot;result&quot;);
+
+// JsonObject の要素数を数える
+int length = result.length();
+
+// ランダムな要素数を選定
+Random rand = new Random();
+int num = rand.nextInt(length);
+
+// ランダムな要素を取得 
+JSONObject jObj1 = result.getJSONObject(num);
+
+var hostid = jObj1.getString(&quot;hostid&quot;);
+
+if (vars.get(&quot;MODE&quot;) == &quot;debug&quot;) { 
+	log.info(hostid.toString());
+}
+
+// 変数セット
+vars.put(&quot;hostid&quot;, hostid.toString());</stringProp>
+          </BeanShellPostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="host.delete" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${request}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/zabbix/api_jsonrpc.php</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.json.JSONObject;
+import org.json.JSONArray;
+
+String[] hostidArr;
+hostidArr = new String[1];
+hostidArr[0] = vars.get(&quot;hostid&quot;);
+
+// POST Body (JSON) 生成 
+JSONObject objRequest = new JSONObject();
+
+objRequest.put(&quot;auth&quot;, vars.get(&quot;auth_key&quot;));
+objRequest.put(&quot;method&quot;, &quot;host.delete&quot;);
+objRequest.put(&quot;id&quot;, 1);
+objRequest.put(&quot;params&quot;, hostidArr);
+objRequest.put(&quot;jsonrpc&quot;, &quot;2.0&quot;);
+
+if (vars.get(&quot;MODE&quot;) == &quot;debug&quot;) {
+    log.info(objRequest.toString());
+}
+
+// データのセット
+vars.put(&quot;request&quot;, objRequest.toString());</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="user.logout" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${request}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/zabbix/api_jsonrpc.php</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.json.JSONObject;
+import org.json.JSONArray;
+
+// POST Body (JSON) 生成 
+JSONObject objRequest = new JSONObject();
+
+objRequest.put(&quot;auth&quot;, vars.get(&quot;auth_key&quot;));
+objRequest.put(&quot;method&quot;, &quot;user.logout&quot;);
+objRequest.put(&quot;id&quot;, 4);
+objRequest.put(&quot;params&quot;, null);
+objRequest.put(&quot;jsonrpc&quot;, &quot;2.0&quot;);
+
+if (vars.get(&quot;MODE&quot;) == &quot;debug&quot;) {
+    log.info(objRequest.toString());
+}
+
+// データのセット
+vars.put(&quot;request&quot;, objRequest.toString());</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
