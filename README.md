@@ -107,6 +107,8 @@ FILE_JMX=
 ```
 /usr/local/jmeter/bin/start-controller_cui.sh
 ```
+⇒ 試験結果レポートは Apache のドキュメントルート配下に生成されます。  
+※ Master サーバにブラウザで接続して確認することが可能です。  
 
 ## トラシュー
 
