@@ -70,7 +70,7 @@
   replace:
     dest: /usr/local/jmeter/bin/jmeter
     regexp: '\DHEAP:="-Xms1g -Xmx1g -XX:MaxMetaspaceSize=256m"}"'
-    replace: 'HEAP:="-Xms{{ heapm_size }} -Xmx{{ heapm_size }} -XX:MaxMetaspaceSize={{ heapm_size }}"}"'
+    replace: '{HEAP:="-Xms{{ heapm_size }} -Xmx{{ heapm_size }} -XX:MaxMetaspaceSize={{ heapm_size }}"}"'
     backup: yes
 
 # Java JSON 取得
