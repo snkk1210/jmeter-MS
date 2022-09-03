@@ -57,7 +57,7 @@
     mode: 0644
     backup: yes
 
-# JMeter ssl通信を無効化
+# JMeter SSL 通信を無効化
 - name: disable ssl user.properties
   lineinfile:
     dest: /usr/local/jmeter/bin/user.properties
@@ -65,7 +65,7 @@
     line: "server.rmi.ssl.disable=true"
     backup: yes
 
-# HEAPメモリ のサイズを調整
+# HEAP メモリのサイズを調整
 - name: change HEAP_SIZE
   replace:
     dest: /usr/local/jmeter/bin/jmeter
