@@ -57,7 +57,7 @@
     mode: 0644
     backup: yes
 
-# JMeter ssl通信を無効化
+# JMeter SSL 通信を無効化
 - name: disable ssl user.properties
   lineinfile:
     dest: /usr/local/jmeter/bin/user.properties
@@ -65,10 +65,18 @@
     line: "server.rmi.ssl.disable=true"
     backup: yes
 
-# HEAPメモリ のサイズを調整
+# HEAP メモリのサイズを調整
 - name: change HEAP_SIZE
   replace:
     dest: /usr/local/jmeter/bin/jmeter
     regexp: '\DHEAP:="-Xms1g -Xmx1g -XX:MaxMetaspaceSize=256m"}"'
-    replace: 'HEAP:="-Xms{{ heapm_size }} -Xmx{{ heapm_size }} -XX:MaxMetaspaceSize={{ heapm_size }}"}"'
+    replace: '{HEAP:="-Xms{{ heapm_size }} -Xmx{{ heapm_size }} -XX:MaxMetaspaceSize={{ heapm_size }}"}"'
     backup: yes
+
+# Java JSON 取得
+- name: install Java JSON
+  unarchive:
+    src: http://www.java2s.com/Code/JarDownload/java-json/java-json.jar.zip
+    dest: /usr/local/jmeter/lib/
+    remote_src: yes
+  when: not jmeter_directory.stat.exists
