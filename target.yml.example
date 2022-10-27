@@ -1,7 +1,7 @@
 ---
 # Main Playbook
-- name: apply master configuration to master nodes
-  hosts: master
+- name: apply controller configuration to controller nodes
+  hosts: controller
   remote_user: vagrant
   become: yes
   roles:
@@ -12,12 +12,12 @@
     - minimum/httpd
     - reboot
 
-- name: apply slave configuration to slave nodes 
-  hosts: slave
+- name: apply worker configuration to worker nodes 
+  hosts: worker
   remote_user: vagrant
   become: yes
   roles:
     - common
     - jmeter55
-    - slave-jmeter
+    - jmeter-worker
     - reboot
