@@ -9,16 +9,16 @@
     group: root
     mode: 0755
 
-# JMeterノード Unit ファイルを設置
-- name: deploy jmeter-node.service Unit file
+# JMeter worker Unit ファイルを設置
+- name: deploy jmeter-worker.service Unit file
   copy:
-    src: ../files/jmeter-node.service
-    dest: /etc/systemd/system/jmeter-node.service
+    src: ../files/jmeter-worker.service
+    dest: /etc/systemd/system/jmeter-worker.service
     owner: root
     group: root
     mode: 0644
 
-# JMeterノード 設定変更 ( eth0 参照 )
+# JMeter worker 設定変更 ( eth0 参照 )
 - name: change config jmeter-server eth0
   blockinfile:
     dest: /usr/local/jmeter/bin/jmeter-server
@@ -27,7 +27,7 @@
     backup: yes
   when: ansible_eth0.ipv4.address is defined 
 
-# JMeterノード 設定変更 ( eth1 参照 )
+# JMeter worker 設定変更 ( eth1 参照 )
 - name: change config jmeter-server eth1
   blockinfile:
     dest: /usr/local/jmeter/bin/jmeter-server
@@ -36,7 +36,7 @@
     backup: yes
   when: ansible_eth1.ipv4.address is defined
 
-# JMeterノード 設定変更 ( ens5 参照 )
+# JMeter worker 設定変更 ( ens5 参照 )
 - name: change config jmeter-server ens5
   blockinfile:
     dest: /usr/local/jmeter/bin/jmeter-server
@@ -45,7 +45,7 @@
     backup: yes
   when: ansible_ens5.ipv4.address is defined
 
-# JMeterノード 設定変更 ( enp0s8 参照 )
+# JMeter worker 設定変更 ( enp0s8 参照 )
 - name: change config jmeter-server enp0s8
   blockinfile:
     dest: /usr/local/jmeter/bin/jmeter-server
@@ -54,10 +54,10 @@
     backup: yes
   when: ansible_enp0s8.ipv4.address is defined
 
-# JMeterノード サービス起動
-- name: start jmeter-node.service
+# JMeter worker サービス起動
+- name: start jmeter-worker.service
   systemd:
-    name: jmeter-node.service
+    name: jmeter-worker.service
     state: started
     daemon_reload: yes
     enabled: yes

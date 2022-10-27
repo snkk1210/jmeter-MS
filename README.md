@@ -1,6 +1,6 @@
 ## 概要
 
-Master / Slave 形式の JMeter クラスター環境をデプロイする Playbook です。
+JMeter クラスター環境をデプロイする Playbook です。
 
 ## 動作環境
 
@@ -23,11 +23,11 @@ vi hosts
 ※ 複数記述可  
 
 ```
-[master] 
-jmeter-master ansible_host=xxx.xxx.xxx.xxx ⇒ Master ノード  
-[slave]  
-jmeter-node1 ansible_host=xxx.xxx.xxx.xxx ⇒ Slave ノード
-jmeter-node2 ansible_host=xxx.xxx.xxx.xxx ⇒ Slave ノード
+[controller] 
+jmeter-controller ansible_host=xxx.xxx.xxx.xxx ⇒ controller ノード  
+[worker]  
+jmeter-worker1 ansible_host=xxx.xxx.xxx.xxx ⇒ worker ノード
+jmeter-worker2 ansible_host=xxx.xxx.xxx.xxx ⇒ worker ノード
 ```
 
 ### 3. 実行ユーザを定義
@@ -78,20 +78,20 @@ ansible-playbook -i hosts target.yml --private-key=xxxxxxx
 
 ## プロビジョニング後の対応
 
-### 1. Mater と Slave の紐づけ
+### 1. Controller と Worker の紐づけ
 
 ```
 vi /usr/local/jmeter/bin/jmeter.properties
 ```
 
-⇒ 下記項目に使用する slave サーバの IP を記述する  
+⇒ 下記項目に使用する worker サーバの IP を記述する  
 ※ 複数指定可(,で区切る)
 
 ```
 remote_hosts=xxx.xxx.xxx.xxx,xxx.xxx.xxx.xxx,xxx.xxx.xxx.xxx
 ```
 
-### 2. Mater サーバの JMeter 起動スクリプト調整
+### 2. Controller サーバの JMeter 起動スクリプト調整
 
 ```
 vi /usr/local/jmeter/bin/start-controller_cui.sh
@@ -108,7 +108,7 @@ FILE_JMX=
 /usr/local/jmeter/bin/start-controller_cui.sh
 ```
 ⇒ 試験結果レポートは Apache のドキュメントルート配下に生成されます。  
-※ Master サーバにブラウザで接続して確認することが可能です。  
+※ Controller サーバにブラウザで接続して確認することが可能です。  
 
 ## トラシュー
 
