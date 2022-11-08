@@ -1,0 +1,8 @@
+---
+# 再起動
+- name: restart_httpd_handler
+  systemd:
+    name: httpd
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
