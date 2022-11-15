@@ -1,0 +1,25 @@
+---
+- name: mkdir vhosts directory
+  file:
+    path: "/var/www/vhosts"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: mkdir public_html directory
+  file:
+    path: "/var/www/vhosts/management.local/public"
+    state: directory
+    owner: apache
+    group: apache
+    mode: 02775
+    recurse: yes
+
+- name: add virtualhost
+  template:
+    src: "../templates/vhost.j2"
+    dest: "/etc/httpd/conf.d/vhost.management.local.conf"
+    owner: root
+    group: root
+    mode: 644

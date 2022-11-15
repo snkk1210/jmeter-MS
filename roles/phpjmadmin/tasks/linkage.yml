@@ -1,0 +1,35 @@
+---
+- name: deploy null 15-php.conf
+  template:
+    src: ../templates/15-php.conf
+    dest: /etc/httpd/conf.modules.d/15-php.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  when:
+    - ansible_facts['distribution_major_version'] == "7"
+
+- name: disable welcome.conf
+  shell: cat /dev/null > /etc/httpd/conf.modules.d/15-php.conf
+  when:
+    - ansible_facts['distribution_major_version'] == "7"
+
+- name: deploy php-fpm.conf to apache 
+  template:
+    src: ../templates/php-fpm.conf
+    dest: /etc/httpd/conf.d/php-fpm.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  when:
+    - ansible_facts['distribution_major_version'] == "7"
+
+- name: restart httpd
+  systemd:
+    name: httpd
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+

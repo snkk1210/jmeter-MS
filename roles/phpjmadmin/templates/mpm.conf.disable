@@ -1,0 +1,15 @@
+<IfModule mpm_prefork_module>
+    ServerLimit              {{ prefork_server_limit | default('256', true) }}
+    MaxRequestWorkers        {{ prefork_max_request_workers | default('256', true) }}
+</IfModule>
+
+<IfModule mpm_event_module>
+    ServerLimit              {{ event_start_servers | default('16', true) }}
+    StartServers             {{ event_start_servers | default('3', true) }}
+    MinSpareThreads          {{ event_minspare_threads | default('75', true) }}
+    MaxSpareThreads          {{ event_maxspare_threads | default('250', true) }}
+    ThreadLimit              {{ event_thread_limit | default('64', true) }}
+    ThreadsPerChild          {{ event_threads_per_child | default('25', true) }}
+    MaxRequestWorkers        {{ event_max_request_workers | default('400', true) }}
+    MaxConnectionsPerChild   {{ event_MaxConnectionsPerChild | default('0', true) }}
+</IfModule>
