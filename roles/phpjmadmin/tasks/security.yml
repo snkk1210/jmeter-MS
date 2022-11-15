@@ -1,0 +1,4 @@
+---
+- name: disable welcome.conf
+  shell: cat /dev/null > /etc/httpd/conf.d/welcome.conf
+  notify: restart_httpd_handler
