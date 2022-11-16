@@ -7,14 +7,14 @@
     group: root
     mode: 0755
 
-- name: mkdir public_html directory
-  file:
-    path: "/var/www/vhosts/management.local/public"
-    state: directory
-    owner: apache
-    group: apache
-    mode: 02775
-    recurse: yes
+#- name: mkdir public_html directory
+#  file:
+#    path: "/var/www/vhosts/management.local/public"
+#    state: directory
+#    owner: apache
+#    group: apache
+#    mode: 02775
+#    recurse: yes
 
 - name: add virtualhost
   template:
