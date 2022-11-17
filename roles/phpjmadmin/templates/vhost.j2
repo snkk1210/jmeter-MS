@@ -7,6 +7,8 @@
            Options FollowSymLinks
            AllowOverride all
    </Directory>
+   Timeout 999999
+   ProxyTimeout 999999
    CustomLog "/var/log/httpd/management.local-access_log" combined
    ErrorLog "/var/log/httpd/management.local-error_log"
 </VirtualHost>
