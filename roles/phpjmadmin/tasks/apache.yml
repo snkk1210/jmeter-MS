@@ -1,0 +1,68 @@
+---
+# Apache インストール
+- name: install apache
+  yum:
+    name:
+      - httpd
+    state: present
+
+- name: modify defconf
+  blockinfile:
+    dest: /etc/httpd/conf/httpd.conf
+    insertafter: '^#ServerName www.example.com:80$'
+    content: 'ServerName {{ inventory_hostname }}:80'
+
+- name: add listen port
+  lineinfile:
+    dest: /etc/httpd/conf/httpd.conf
+    state: present
+    insertafter: "^Listen 80"
+    line: "Listen 8888"
+
+- name: change parameter
+  template:
+    src: ../templates/{{ item }}
+    dest: /etc/httpd/conf.d/
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - mpm.conf.disable
+    - security.conf
+
+- name: modify mpm prefork to event
+  template:
+    src: ../templates/00-mpm.conf
+    dest: /etc/httpd/conf.modules.d/00-mpm.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  when:
+    - ansible_facts['distribution_major_version'] == "7"
+
+- name: mkdir /etc/systemd/system/httpd.service.d/
+  file:
+    path: "/etc/systemd/system/httpd.service.d"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: change file descriptor limit for httpd
+  template:
+    src: "../templates/limits.conf"
+    dest: "/etc/systemd/system/httpd.service.d/"
+    owner: root
+    group: root
+    mode: 0644
+
+- include_tasks: security.yml
+- include_tasks: vhost.yml
+
+- name: restart httpd
+  systemd:
+    name: httpd
+    state: restarted
+    daemon_reload: yes
+    enabled: yes

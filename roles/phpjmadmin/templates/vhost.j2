@@ -1,0 +1,14 @@
+<VirtualHost *:8888>
+   ServerAdmin info@management.local
+   ServerName management.local
+   DocumentRoot "/var/www/vhosts/management.local/public"
+   DirectoryIndex index.php index.html index.xml
+   <Directory /var/www/vhosts/management.local/public >
+           Options FollowSymLinks
+           AllowOverride all
+   </Directory>
+   Timeout 999999
+   ProxyTimeout 999999
+   CustomLog "/var/log/httpd/management.local-access_log" combined
+   ErrorLog "/var/log/httpd/management.local-error_log"
+</VirtualHost>

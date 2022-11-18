@@ -1,0 +1,32 @@
+---
+- include_tasks: apache.yml
+- include_tasks: php-fpm.yml
+
+- name: git clone flanker
+  ansible.builtin.git:
+    repo: https://github.com/snkk1210/flanker.git
+    dest: /var/www/vhosts/management.local
+
+- name: chown apache:apache /var/www/vhosts/management.local -R
+  file:
+    path: "/var/www/vhosts/management.local"
+    state: directory
+    owner: apache
+    group: apache
+    recurse: yes
+
+- name: chown apache:apache /var/www/html
+  file:
+    path: "/var/www/html"
+    state: directory
+    owner: apache
+    group: apache
+    mode: 0755
+
+- name: chown apache:apache /usr/local/jmeter/bin -R
+  file:
+    path: "/usr/local/jmeter/bin"
+    state: directory
+    owner: apache
+    group: apache
+    recurse: yes
