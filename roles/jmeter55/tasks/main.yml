@@ -49,8 +49,8 @@
 
 # JMeter 設定ファイルを設置
 - name: deploy jmeter.properties
-  copy:
-    src: ../files/jmeter.properties
+  template:
+    src: ../templates/jmeter.properties
     dest: /usr/local/jmeter/bin/jmeter.properties
     owner: root
     group: root
