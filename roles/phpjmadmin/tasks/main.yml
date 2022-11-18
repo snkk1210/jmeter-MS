@@ -22,3 +22,11 @@
     owner: apache
     group: apache
     mode: 0755
+
+- name: chown apache:apache /usr/local/jmeter/bin -R
+  file:
+    path: "/usr/local/jmeter/bin"
+    state: directory
+    owner: apache
+    group: apache
+    recurse: yes
