@@ -9,7 +9,8 @@
     - tigervnc
     - jmeter55
     - python-scripts
-    - minimum/httpd
+    #- minimum/httpd
+    - phpjmadmin
     - reboot
 
 - name: apply worker configuration to worker nodes 
