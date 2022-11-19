@@ -110,6 +110,13 @@ FILE_JMX=
 ⇒ 試験結果レポートは Apache のドキュメントルート配下に生成されます。  
 ※ Controller サーバにブラウザで接続して確認することが可能です。  
 
+## WEB コンパネ
+
+WEB ベースで JMeter を操作できるコントロールパネルを用意しています。  
+
+※ 詳細は下記リポジトリの README を参照下さい。  
+https://github.com/snkk1210/flanker
+
 ## トラシュー
 
 ### vncserver が立ち上がらない時
