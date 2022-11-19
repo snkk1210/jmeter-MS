@@ -6,6 +6,7 @@
   ansible.builtin.git:
     repo: https://github.com/snkk1210/flanker.git
     dest: /var/www/vhosts/management.local
+    version: release/0.0.1
 
 - name: chown apache:apache /var/www/vhosts/management.local -R
   file:
@@ -22,3 +23,11 @@
     owner: apache
     group: apache
     mode: 0755
+
+- name: chown apache:apache /usr/local/jmeter/bin -R
+  file:
+    path: "/usr/local/jmeter/bin"
+    state: directory
+    owner: apache
+    group: apache
+    recurse: yes
