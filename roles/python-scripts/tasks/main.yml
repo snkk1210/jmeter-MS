@@ -29,5 +29,9 @@
     mode: 0755
     backup: yes
   with_items:
-    - start-controller_cui.sh
     - csv2gspread.py
+
+- name: add csv2gspread.py to script
+  lineinfile:
+    dest: /usr/local/jmeter/bin/start-controller_cui.sh
+    line: "#/usr/local/jmeter/bin/csv2gspread.py ${LOGDIR}/${OPTIME}/statistics.csv"

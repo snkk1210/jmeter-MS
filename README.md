@@ -152,5 +152,5 @@ vi /usr/local/bin/main.py
 JMeter 起動スクリプトの下記項目をコメントインしてください。
 
 ```
-#/usr/local/bin/main.py ${LOGDIR}/${OPTIME}_th/statistics.csv
+#/usr/local/jmeter/bin/csv2gspread.py ${LOGDIR}/${OPTIME}/statistics.csv
 ```
