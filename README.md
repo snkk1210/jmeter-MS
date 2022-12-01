@@ -10,7 +10,7 @@ JMeter クラスター環境をデプロイする Playbook です。
 ## 使い方
 ### 1. リポジトリを clone
 ```
-git clone https://github.com/keisukesanuki/jmeter-MS.git
+git clone https://github.com/snkk1210/jmeter-MS.git
 cd jmeter-MS
 ```
 
