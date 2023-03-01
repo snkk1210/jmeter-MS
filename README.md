@@ -1,6 +1,6 @@
 ## What is this ?
 
-JMeter クラスター環境をデプロイする Playbook です。
+JMeter クラスタ環境をデプロイする Ansible Playbook です。
 
 ## Environment
 
