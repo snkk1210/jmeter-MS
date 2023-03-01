@@ -1,13 +1,13 @@
-## 概要
+## What is this ?
 
 JMeter クラスター環境をデプロイする Playbook です。
 
-## 動作環境
+## Environment
 
 - CentOS7
 - AlmaLinux8
 
-## 使い方
+## Usage
 ### 1. リポジトリを clone
 ```
 git clone https://github.com/snkk1210/jmeter-MS.git
@@ -19,7 +19,7 @@ cd jmeter-MS
 cp -p hosts.example hosts
 vi hosts
 ```
-⇒ プロビジョニング対象の IP アドレス をそれぞれ記述する  
+⇒ プロビジョニング対象の IP アドレス をそれぞれ記述して下さい。   
 ※ 複数記述可  
 
 ```
@@ -38,9 +38,11 @@ vi target.yml
 ⇒ 下記項目に実行ユーザを記述
 
 ```
-remote_user:  xxxxxx
+remote_user: xxxxxx
 ```
 ### 4. VNC 接続用のパスワードを定義
+
+※ VNC 接続が不要であれば無視ください。  
 
 ```
 vi roles/tigervnc/files/vncpasswd.sh
@@ -76,7 +78,15 @@ ansible-playbook -i hosts target.yml --ask-pass
 ansible-playbook -i hosts target.yml --private-key=xxxxxxx
 ```
 
+## WEB コンパネ
+
+WEB ベースで JMeter を操作できるコントロールパネルを用意しています。  
+
+※ 詳細は下記リポジトリの README を参照下さい。  
+https://github.com/snkk1210/flanker
+
 ## プロビジョニング後の対応
+※ 先の「WEB コンパネ」で JMeter を操作するのであれば、本項は無視ください。
 
 ### 1. Controller と Worker の紐づけ
 
@@ -109,13 +119,6 @@ FILE_JMX=
 ```
 ⇒ 試験結果レポートは Apache のドキュメントルート配下に生成されます。  
 ※ Controller サーバにブラウザで接続して確認することが可能です。  
-
-## WEB コンパネ
-
-WEB ベースで JMeter を操作できるコントロールパネルを用意しています。  
-
-※ 詳細は下記リポジトリの README を参照下さい。  
-https://github.com/snkk1210/flanker
 
 ## トラシュー
 
