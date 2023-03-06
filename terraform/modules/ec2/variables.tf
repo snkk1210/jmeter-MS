@@ -3,6 +3,10 @@ variable "project" {
   default = ""
 }
 
+variable "cidr_prefix" {
+  default = "10.0"
+}
+
 variable "vpc_id" {
   type    = string
   default = ""

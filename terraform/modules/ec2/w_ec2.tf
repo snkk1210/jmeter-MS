@@ -2,14 +2,14 @@
 # NOTE: Worker KMS
 */
 resource "aws_kms_key" "worker_storage" {
-  description             = "${var.common.project}-${var.common.environment}-worker-storage-kms"
+  description             = "${var.project}-jmeter-worker-storage-kms"
   deletion_window_in_days = 30
   enable_key_rotation     = true
   is_enabled              = true
 }
 
 resource "aws_kms_alias" "worker_storage" {
-  name          = "alias/${var.common.project}/${var.common.environment}/worker_storage_kms_key"
+  name          = "alias/${var.project}/jmeter/worker_storage_kms_key"
   target_key_id = aws_kms_key.worker_storage.id
 }
 

@@ -36,7 +36,7 @@ resource "aws_security_group_rule" "worker_internal_all_ingress" {
   from_port         = 0
   to_port           = 0
   protocol          = "-1"
-  cidr_blocks       = "${var.cidr_prefix}.0.0/16"
+  cidr_blocks       = ["${var.cidr_prefix}.0.0/16"]
   security_group_id = aws_security_group.worker.id
 
   lifecycle {

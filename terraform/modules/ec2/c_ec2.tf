@@ -2,14 +2,14 @@
 # NOTE: Controller KMS
 */
 resource "aws_kms_key" "controller_storage" {
-  description             = "${var.common.project}-${var.common.environment}-controller-storage-kms"
+  description             = "${var.project}-jmeter-controller-storage-kms"
   deletion_window_in_days = 30
   enable_key_rotation     = true
   is_enabled              = true
 }
 
 resource "aws_kms_alias" "controller_storage" {
-  name          = "alias/${var.common.project}/${var.common.environment}/controller_storage_kms_key"
+  name          = "alias/${var.project}/jmeter/controller_storage_kms_key"
   target_key_id = aws_kms_key.controller_storage.id
 }
 
