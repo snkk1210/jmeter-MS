@@ -17,7 +17,7 @@ resource "aws_kms_alias" "controller_storage" {
 # NOTE: Controller
 */
 resource "aws_instance" "controller" {
-  count = var.c_number
+  count                       = var.c_number
   ami                         = var.ami
   instance_type               = var.instance_type
   vpc_security_group_ids      = [aws_security_group.controller.id]
@@ -35,7 +35,7 @@ resource "aws_instance" "controller" {
   }
 
   tags = {
-    Name        = "${var.project}-jmeter-${format("controller%02d", count.index + 1)}"
+    Name = "${var.project}-jmeter-${format("controller%02d", count.index + 1)}"
   }
 
   lifecycle {
@@ -48,8 +48,8 @@ resource "aws_instance" "controller" {
 }
 
 resource "aws_eip" "controller" {
-  count = var.c_number
-  instance = "${element(aws_instance.controller.*.id, count.index)}"
+  count    = var.c_number
+  instance = element(aws_instance.controller.*.id, count.index)
   vpc      = true
 
   tags = {

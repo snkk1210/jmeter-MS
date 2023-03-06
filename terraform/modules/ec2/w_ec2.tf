@@ -17,7 +17,7 @@ resource "aws_kms_alias" "worker_storage" {
 # NOTE: Worker
 */
 resource "aws_instance" "worker" {
-  count = var.w_number
+  count                       = var.w_number
   ami                         = var.ami
   instance_type               = var.instance_type
   vpc_security_group_ids      = [aws_security_group.worker.id]
@@ -35,7 +35,7 @@ resource "aws_instance" "worker" {
   }
 
   tags = {
-    Name        = "${var.project}-jmeter-${format("worker%02d", count.index + 1)}"
+    Name = "${var.project}-jmeter-${format("worker%02d", count.index + 1)}"
   }
 
   lifecycle {

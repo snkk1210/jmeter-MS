@@ -3,7 +3,7 @@ resource "aws_security_group" "controller" {
   description = "Security group for Controller"
   vpc_id      = var.vpc_id
   tags = {
-    Name        = "${var.project}-jmeter-controller-sg"
+    Name = "${var.project}-jmeter-controller-sg"
   }
 }
 

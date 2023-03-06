@@ -4,7 +4,7 @@ resource "aws_vpc" "common" {
   enable_dns_hostnames = true
 
   tags = {
-    Name        = "${var.project}-jmeter-vpc"
+    Name = "${var.project}-jmeter-vpc"
   }
 }
 

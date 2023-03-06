@@ -1,6 +1,6 @@
 variable "project" {
   default = ""
-  
+
 }
 
 variable "cidr_prefix" {
