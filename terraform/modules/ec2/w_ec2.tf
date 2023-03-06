@@ -24,7 +24,7 @@ resource "aws_instance" "worker" {
   key_name                    = aws_key_pair.key_pair.id
   subnet_id                   = var.subnet_ids[0]
   associate_public_ip_address = var.associate_public_ip_address
-  iam_instance_profile        = aws_iam_instance_profile.worker_profile.name
+  //iam_instance_profile        = aws_iam_instance_profile.worker_profile.name
 
   root_block_device {
     volume_type           = var.root_block_device.volume_type
@@ -41,8 +41,6 @@ resource "aws_instance" "worker" {
   lifecycle {
     ignore_changes = [
       associate_public_ip_address,
-      public_dns,
-      public_ip,
       root_block_device,
     ]
   }
