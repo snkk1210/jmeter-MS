@@ -22,3 +22,6 @@ ec2.tf
 backend.tf
 provider.tf
 terraform.tfvars
+
+# Lock File
+.terraform.lock.hcl
