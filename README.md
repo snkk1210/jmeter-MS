@@ -1,6 +1,8 @@
 ## What is this ?
 
-JMeter クラスタ環境をデプロイする Ansible Playbook です。
+JMeter クラスタ環境をプロビジョニングする Ansible Playbook です。  
+対応するクラウドリソースをデプロイする Terraform HCL も併せて管理しています。  
+※ HCL 詳細は ./terraform/ 配下の README.md を参照下さい。  
 
 ## Environment
 
@@ -95,7 +97,7 @@ vi /usr/local/jmeter/bin/jmeter.properties
 ```
 
 ⇒ 下記項目に使用する worker サーバの IP を記述する  
-※ 複数指定可(,で区切る)
+※ 複数指定可 ( , で区切る )
 
 ```
 remote_hosts=xxx.xxx.xxx.xxx,xxx.xxx.xxx.xxx,xxx.xxx.xxx.xxx
