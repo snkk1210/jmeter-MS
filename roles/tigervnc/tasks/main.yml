@@ -1,7 +1,7 @@
 ---
 # tasks file for tigervnc
 
-# tigervnc-server のインストール
+# tigervnc-server インストール
 - name: install vnc
   yum:
     name:
@@ -23,19 +23,19 @@
     name:
       - pexpect
 
-# GUI 周りのパッケージをインストール (RHEL7)
+# GUI 関連 パッケージ インストール ( RHEL7 )
 - name: install GNOME Desktop for GUI ENV RHEL7
   shell: yum groupinstall "GNOME Desktop" -y --setopt=group_package_types=mandatory,default,optional
   when:
     - ansible_facts['distribution_major_version'] == "7"
 
-# GUI 周りのパッケージをインストール (RHEL8)
+# GUI 関連 パッケージ インストール ( RHEL8 )
 - name: install GNOME Desktop for GUI ENV RHEL8
   shell: dnf groupinstall "Server with GUI" -y
   when:
     - ansible_facts['distribution_major_version'] == "8"
 
-# firewalld を無効化
+# firewalld 無効化
 - name: disable firewalld
   systemd:
     name: firewalld
@@ -52,7 +52,7 @@
       "Verify:": "{{ vnc_passwd | default('vncserver', true) }}"
       "Would you like to enter a view-only password (y/n)?": "n\r"
 
-# VNC 設定ファイルの設置
+# VNC Unit ファイル 設置
 - name: deploy vncserver@.service Unit file
   copy:
     src: ../files/vncserver@.service_root
