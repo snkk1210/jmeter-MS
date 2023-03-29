@@ -7,7 +7,21 @@
     name:
       - tigervnc-server
       - expect
+      - epel-release
     state: present
+
+- name: install python-pip
+  yum:
+    name:
+      - python-pip
+    state: present
+  when:
+    - ansible_facts['distribution_major_version'] == "7"
+
+- name: pip install pexpect
+  pip:
+    name:
+      - pexpect
 
 # GUI 周りのパッケージをインストール (RHEL7)
 - name: install GNOME Desktop for GUI ENV RHEL7
@@ -29,11 +43,14 @@
     enabled: no
   ignore_errors: yes
 
-# VNC パスワード設定スクリプトを実行
-- name: run vncpasswd.sh script for define password
-  become: yes
-  become_user: root
-  script: ../files/vncpasswd.sh
+# vncpasswd
+- name: vncpasswd
+  expect:
+    command: vncpasswd
+    responses:
+      "Password:": "{{ vnc_passwd | default('vncserver', true) }}"
+      "Verify:": "{{ vnc_passwd | default('vncserver', true) }}"
+      "Would you like to enter a view-only password (y/n)?": "n\r"
 
 # VNC 設定ファイルの設置
 - name: deploy vncserver@.service Unit file
