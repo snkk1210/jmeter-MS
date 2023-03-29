@@ -8,7 +8,7 @@
     - common
     - tigervnc
     - jmeter55
-    - python-scripts
+    #- python-scripts
     #- minimum/httpd
     - phpjmadmin
     - reboot
