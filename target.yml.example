@@ -11,7 +11,7 @@
     #- python-scripts
     #- minimum/httpd
     - phpjmadmin
-    - reboot
+    #- reboot
 
 - name: apply worker configuration to worker nodes 
   hosts: worker
@@ -21,4 +21,4 @@
     - common
     - jmeter55
     - jmeter-worker
-    - reboot
+    #- reboot
