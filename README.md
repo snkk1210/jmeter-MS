@@ -140,4 +140,4 @@ systemctl restart vncserver@:1.service
 
 ## ・Version
 
-release/0.0.2
+release/0.0.3
