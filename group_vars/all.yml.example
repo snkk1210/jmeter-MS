@@ -3,3 +3,4 @@
 heapm_size: 256m
 vnc_passwd: vncserver
 remote_hosts: 192.168.33.10,192.168.33.11
+flanker_branch: release/0.0.5

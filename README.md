@@ -68,6 +68,12 @@ vnc_passwd: string_6
 remote_hosts: 192.168.33.xx,192.168.33.xx
 ```
 
+- WEB コンパネアプリのブランチを指定
+※ 定義しなくても OK ( 定義がなければ、最新版が導入されます。 )
+```
+flanker_branch: release/0.0.5
+```
+
 ### 5. Playbook の実行
 
 - パスワード
@@ -86,6 +92,7 @@ WEB ベースで JMeter を一括操作できるコントロールパネルを�
 
 ※ 詳細は下記リポジトリの README を参照下さい。  
 https://github.com/snkk1210/flanker
+
 
 ## ・プロビジョニング後の対応
 ※ 先の「WEB コンパネ」で JMeter を操作するのであれば、本項は無視ください。
