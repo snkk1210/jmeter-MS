@@ -8,9 +8,23 @@
       - wget
       - zip
       - unzip
+      - jq
+
+- name: install Java packages for RHEL7 or RHEL8
+  yum:
+    name:
       - java-1.8.0-openjdk.x86_64
       - java-1.8.0-openjdk-devel.x86_64
-      - jq
+  when:
+    - ansible_facts['distribution_major_version'] == "7" or ansible_facts['distribution_major_version'] == "8" 
+
+- name: install Java packages for RHEL9
+  dnf:
+    name:
+      - java-11-openjdk
+      - java-11-openjdk-devel
+  when:
+    - ansible_facts['distribution_major_version'] == "9"
 
 - name: confirm stat /usr/local/jmeter directory
   stat: 
