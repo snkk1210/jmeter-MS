@@ -16,6 +16,15 @@
   when:
     - ansible_facts['distribution_major_version'] == "8"
 
+- name: install epel and remi repository for RHEL9
+  yum:
+    name:
+      - epel-release
+      - https://rpms.remirepo.net/enterprise/remi-release-9.rpm
+    disable_gpg_check: yes
+  when:
+    - ansible_facts['distribution_major_version'] == "9"
+
 - name: install php-module for RHEL7
   yum:
     name: "{{ item }}"
@@ -26,19 +35,19 @@
   when:
     - ansible_facts['distribution_major_version'] == "7"
 
-- name: dnf module enable for RHEL8
+- name: dnf module enable for RHEL8 or RHEL9
   shell: "dnf module enable -y php:remi-{{ php_var | default('8.1', true) }}"
   when:
-    - ansible_facts['distribution_major_version'] == "8"
+    - ansible_facts['distribution_major_version'] == "8" or ansible_facts['distribution_major_version'] == "9"
 
-- name: install php-module for RHEL8
+- name: install php-module for RHEL8 or RHEL9
   yum:
     name: "{{ item }}"
     state: present
   with_items:
     - "{{ php_modules | default('php-fpm', true) }}"
   when:
-    - ansible_facts['distribution_major_version'] == "8"
+    - ansible_facts['distribution_major_version'] == "8" or ansible_facts['distribution_major_version'] == "9"
 
 - name: change php.ini
   lineinfile:

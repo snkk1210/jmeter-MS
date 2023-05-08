@@ -16,7 +16,7 @@
       - python-pip
     state: present
   when:
-    - ansible_facts['distribution_major_version'] == "7"
+    - ansible_facts['distribution_major_version'] == "7" or ansible_facts['distribution_major_version'] == "9"
 
 - name: pip install pexpect
   pip:
@@ -29,11 +29,11 @@
   when:
     - ansible_facts['distribution_major_version'] == "7"
 
-# GUI 関連 パッケージ インストール ( RHEL8 )
-- name: install GNOME Desktop for GUI ENV RHEL8
+# GUI 関連 パッケージ インストール ( RHEL8 or RHEL9 )
+- name: install GNOME Desktop for GUI ENV RHEL8 or RHEL9
   shell: dnf groupinstall "Server with GUI" -y
   when:
-    - ansible_facts['distribution_major_version'] == "8"
+    - ansible_facts['distribution_major_version'] == "8" or ansible_facts['distribution_major_version'] == "9"
 
 # firewalld 無効化
 - name: disable firewalld
