@@ -5,6 +5,16 @@
     name: "*"
     state: latest
 
+# Development tools の導入
+- name: dnf yum groupinstall Development tools
+  dnf:
+    name: "@Development tools"
+    state: latest
+
+# dnf キャッシュの削除
+- name: dnf clean packages
+  shell: dnf clean packages
+
 # epel インストール
 - name: install epel-release
   dnf:
