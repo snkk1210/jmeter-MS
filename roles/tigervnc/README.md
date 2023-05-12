@@ -19,7 +19,7 @@ Role Variables
 ---
 # vars file for tigervnc
 
-vnc_password: sanuki
+vnc_passwd: vncserver
 ```
 
 Dependencies
