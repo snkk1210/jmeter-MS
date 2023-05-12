@@ -9,6 +9,8 @@ JMeter クラスタ環境をプロビジョニングする Ansible Playbook で�
 ### Target
 - CentOS7
 - AlmaLinux8
+- AlmaLinux9
+- RockyLinux9
 
 ## ・Usage
 ### 1. リポジトリを clone
@@ -27,10 +29,10 @@ vi hosts
 
 ```
 [controller] 
-jmeter-controller ansible_host=xxx.xxx.xxx.xxx ⇒ controller ノード  
+jmeter-controller ansible_host=xxx.xxx.xxx.xxx ⇐ controller ノード  
 [worker]  
-jmeter-worker1 ansible_host=xxx.xxx.xxx.xxx ⇒ worker ノード
-jmeter-worker2 ansible_host=xxx.xxx.xxx.xxx ⇒ worker ノード
+jmeter-worker1 ansible_host=xxx.xxx.xxx.xxx ⇐ worker ノード
+jmeter-worker2 ansible_host=xxx.xxx.xxx.xxx ⇐ worker ノード
 ```
 
 ### 3. 接続ユーザを定義
@@ -140,4 +142,4 @@ systemctl restart vncserver@:1.service
 
 ## ・Version
 
-release/0.0.3
+release/0.0.4

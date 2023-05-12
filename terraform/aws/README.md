@@ -1,6 +1,6 @@
 ## What is this ?
 
-JMeter クラスタ環境デプロイ用の AWS リソースを作成する Terraform コードです。  
+JMeter クラスタ環境用の AWS リソースをデプロイする Terraform コードです。  
 
 ## Usage
 ### 1. 環境変数
