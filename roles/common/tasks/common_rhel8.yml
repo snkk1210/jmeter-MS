@@ -1,36 +1,34 @@
 ---
 # yum update
-
-# 最新版ソフトウェアの適用
-- name: yum groupinstall Development tools
-  yum:
-    name: "@Development tools"
-    state: present
-
-# yum update
 - name: yum update
   yum:
     name: "*"
     state: latest
 
-# epelのインストール
+# Development tools の導入
+- name: yum groupinstall Development tools
+  yum:
+    name: "@Development tools"
+    state: latest
+
+# epel インストール
 - name: install epel-release
   yum:
     name: epel-release
 
-# selinuxのライブラリをインストール
+# selinux ライブラリをインストール
 - name: install libselinux-python
   yum:
     name: libselinux-python
     state: present
   ignore_errors: yes
 
-# selinuxを無効化
+# selinux を無効化
 - name: disable selinux
   selinux:
     state: disabled
 
-# firewalldを無効化
+# firewalld を無効化
 - name: disable firewalld
   systemd:
     name: firewalld

@@ -6,7 +6,7 @@
     state: latest
 
 # Development tools の導入
-- name: dnf yum groupinstall Development tools
+- name: dnf groupinstall Development tools
   dnf:
     name: "@Development tools"
     state: latest
