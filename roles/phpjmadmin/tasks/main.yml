@@ -16,6 +16,9 @@
     group: apache
     recurse: yes
 
+- name: git config --global --add safe.directory /var/www/vhosts/management.local
+  shell: git config --global --add safe.directory /var/www/vhosts/management.local
+
 - name: chown apache:apache /var/www/html
   file:
     path: "/var/www/html"
