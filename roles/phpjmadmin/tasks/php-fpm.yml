@@ -2,7 +2,7 @@
 - name: install epel and remi repository for RHEL7
   yum:
     name:
-      - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+      - epel-release
       - http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
   when:
     - ansible_facts['distribution_major_version'] == "7"
