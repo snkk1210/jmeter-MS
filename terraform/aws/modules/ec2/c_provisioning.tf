@@ -1,4 +1,4 @@
-resource "null_resource" "ansible_c_provisioner" {
+resource "null_resource" "ansible_c_host_generator" {
   count      = var.c_number
   depends_on = [aws_instance.controller]
 
