@@ -25,3 +25,6 @@ terraform.tfvars
 
 # Lock File
 .terraform.lock.hcl
+
+# Ansible hosts file
+**/modules/ec2/bin/ansible/hosts
