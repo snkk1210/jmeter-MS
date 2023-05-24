@@ -9,11 +9,11 @@ public_ip = sys.argv[1]
 hostname = sys.argv[2]
 
 # inventory file path
-inventory_file = "ansible/hosts-c-" + public_ip
+inventory_file = "ansible/hosts-w-" + public_ip
 
 # Add IP address to inventory file
 with open(inventory_file, "w") as f:
-    f.write("[controller]\n")
+    f.write("[worker]\n")
     f.write(hostname + " ansible_host=" + public_ip)
     f.write("\n")
 
