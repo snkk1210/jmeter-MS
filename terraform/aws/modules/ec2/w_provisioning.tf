@@ -1,4 +1,5 @@
 resource "null_resource" "wait_for_w_instance" {
+  count      = var.w_number
   provisioner "local-exec" {
     command = "sleep 120"
   }
