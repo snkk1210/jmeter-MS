@@ -1,3 +1,11 @@
+resource "null_resource" "wait_for_instance" {
+  provisioner "local-exec" {
+    command = "sleep 120"
+  }
+
+  depends_on = [aws_instance.controller]
+}
+
 resource "null_resource" "ansible_c_inventory_generator" {
   count      = var.c_number
   depends_on = [aws_instance.controller]
@@ -10,7 +18,7 @@ resource "null_resource" "ansible_c_inventory_generator" {
 
 resource "null_resource" "ansible_c_provisioner" {
   count      = var.c_number
-  depends_on = [aws_instance.controller]
+  depends_on = [null_resource.wait_for_instance]
 
   provisioner "local-exec" {
     command = "ansible-playbook -i ./terraform/aws/modules/ec2/bin/ansible/hosts-c-${aws_eip.controller[count.index].public_ip} target.yml --private-key=./terraform/aws/modules/ec2/secret_key/jmeter.key"
