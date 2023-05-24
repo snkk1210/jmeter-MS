@@ -16,6 +16,10 @@ SSH 公開鍵認証用の公開鍵を下記ファイル名で配置
 ```
 ./modules/ec2/public_key/jmeter.pub
 ```
+SSH 公開鍵認証用の秘密鍵を下記ファイル名で配置
+```
+./modules/ec2/secret_key/jmeter.key
+```
 
 ### 2. .tf ファイル
 
