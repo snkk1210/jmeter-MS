@@ -7,7 +7,7 @@ resource "null_resource" "wait_for_w_instance" {
 }
 
 resource "null_resource" "ansible_w_inventory_generator" {
-  count      = var.c_number
+  count      = var.w_number
   depends_on = [aws_instance.worker]
 
   provisioner "local-exec" {
@@ -17,7 +17,7 @@ resource "null_resource" "ansible_w_inventory_generator" {
 }
 
 resource "null_resource" "ansible_w_provisioner" {
-  count      = var.c_number
+  count      = var.w_number
   depends_on = [null_resource.wait_for_w_instance]
 
   provisioner "local-exec" {
