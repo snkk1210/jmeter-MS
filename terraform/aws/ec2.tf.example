@@ -6,6 +6,11 @@ module "ec2" {
   // Number of Worker
   w_number = 2
 
+  // Whether to provision Controller or not
+  enable_c_provision = true
+  // Whether to provision Worker or not
+  enable_w_provision = true
+
   // Controller Server Connection IP
   security_group_rules_controller = [
     "xxx.xxx.xxx.xxx/32",

@@ -69,3 +69,13 @@ variable "w_number" {
   type    = number
   default = "1"
 }
+
+variable "enable_c_provision" {
+  type    = bool
+  default = false
+}
+
+variable "enable_w_provision" {
+  type    = bool
+  default = false
+}
