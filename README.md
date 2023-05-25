@@ -73,7 +73,7 @@ remote_hosts: 192.168.33.xx,192.168.33.xx
 - WEB コンパネアプリのブランチを指定  
 ※ 定義がなければ、最新版が導入されます。
 ```
-flanker_branch: release/0.0.6
+flanker_branch: release/0.0.7
 ```
 
 ### 5. Playbook の実行
