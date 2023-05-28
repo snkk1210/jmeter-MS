@@ -21,6 +21,10 @@ export TF_VAR_jmeter_aws_secret_key=
 ```
 ./modules/ec2/secret_key/jmeter.key
 ```
+※ 秘密鍵のパーミッションを調整
+```
+chmod 700 ./modules/ec2/secret_key/jmeter.key
+```
 
 ### 3. tf ファイル作成
 
@@ -49,6 +53,19 @@ cp -p ./../../target.yml.example ./../../target.yml
 vi ./../../target.yml
 ==========================
 remote_user: xxxxxx
+==========================
+```
+
+- JMeter 用のパラメータを定義 ( README を参照してください )
+```
+cp -p ./../../group_vars/all.yml.example ./../../group_vars/all.yml
+vi ./../../group_vars/all.yml
+==========================
+---
+heapm_size: 256m
+vnc_passwd: vncserver
+remote_hosts: 192.168.33.10,192.168.33.11
+#flanker_branch: release/0.0.7
 ==========================
 ```
 
