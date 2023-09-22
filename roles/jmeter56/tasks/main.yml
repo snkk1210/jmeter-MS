@@ -1,0 +1,96 @@
+---
+# tasks file for jmeter56
+
+# JMeter 構築に必要なパッケージの導入
+- name: install packages for JMeter
+  yum:
+    name:
+      - wget
+      - zip
+      - unzip
+      - jq
+
+- name: install Java packages for RHEL7 or RHEL8
+  yum:
+    name:
+      - java-1.8.0-openjdk.x86_64
+      - java-1.8.0-openjdk-devel.x86_64
+  when:
+    - ansible_facts['distribution_major_version'] == "7" or ansible_facts['distribution_major_version'] == "8" 
+
+- name: install Java packages for RHEL9
+  dnf:
+    name:
+      - java-11-openjdk
+      - java-11-openjdk-devel
+  when:
+    - ansible_facts['distribution_major_version'] == "9"
+
+- name: confirm stat /usr/local/jmeter directory
+  stat: 
+    path: /usr/local/jmeter
+  register: jmeter_directory
+
+# JMeter インストール
+- name: install JMeter binary
+  unarchive:
+    src: https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.2.zip
+    dest: /usr/local/
+    remote_src: yes
+  when: not jmeter_directory.stat.exists
+
+- name: confirm stat /usr/local/apache-jmeter-5.6.2 directory
+  stat: 
+    path: /usr/local/apache-jmeter-5.6.2
+  register: original_jmeter_directory
+
+# JMeter ディレクトリのリネーム
+- name: rename apache-jmeter-5.6.2 to jmeter
+  shell: mv apache-jmeter-5.6.2 jmeter
+    chdir=/usr/local/
+  ignore_errors: yes
+  when: original_jmeter_directory.stat.exists
+
+# JMeter 起動用のシェルスクリプトを設置
+- name: deploy start-controller_cui.sh script
+  copy:
+    src: ../files/start-controller_cui.sh
+    dest: /usr/local/jmeter/bin/start-controller_cui.sh
+    owner: root
+    group: root
+    mode: 0755
+    backup: yes
+
+# JMeter 設定ファイルを設置
+- name: deploy jmeter.properties
+  template:
+    src: ../templates/jmeter.properties
+    dest: /usr/local/jmeter/bin/jmeter.properties
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+
+# JMeter SSL 通信を無効化
+- name: disable ssl user.properties
+  lineinfile:
+    dest: /usr/local/jmeter/bin/user.properties
+    regexp: "#server.rmi.ssl.disable=false"
+    line: "server.rmi.ssl.disable=true"
+    backup: yes
+
+# HEAP メモリのサイズを調整
+- name: change HEAP_SIZE
+  replace:
+    dest: /usr/local/jmeter/bin/jmeter
+    regexp: '\DHEAP:="-Xms1g -Xmx1g -XX:MaxMetaspaceSize=256m"}"'
+    replace: '{HEAP:="-Xms{{ heapm_size }} -Xmx{{ heapm_size }} -XX:MaxMetaspaceSize={{ heapm_size }}"}"'
+    backup: yes
+
+# Java JSON 取得
+- name: install Java JSON
+  unarchive:
+    src: http://www.java2s.com/Code/JarDownload/java-json/java-json.jar.zip
+    dest: /usr/local/jmeter/lib/
+    remote_src: yes
+  when: not jmeter_directory.stat.exists
