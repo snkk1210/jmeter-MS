@@ -1,4 +1,4 @@
-jmeter55
+jmeter56
 =========
 
 - JMeter 構築に必要なパッケージのインストール
@@ -13,6 +13,8 @@ Requirements
 
 - CentOS7
 - AlmaLinux8
+- AlmaLinux9
+- RockyLinux9
 
 Role Variables
 --------------
@@ -29,12 +31,7 @@ Example Playbook
 
 - none
 
-License
--------
-
-BSD
-
 Author Information
 ------------------
 
-- keisuke sanuki 
+- snkk1210 
