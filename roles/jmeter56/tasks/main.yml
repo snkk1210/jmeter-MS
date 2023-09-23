@@ -34,19 +34,19 @@
 # JMeter インストール
 - name: install JMeter binary
   unarchive:
-    src: https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.2.zip
+    src: https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-{{ jmeter_version }}.zip
     dest: /usr/local/
     remote_src: yes
   when: not jmeter_directory.stat.exists
 
-- name: confirm stat /usr/local/apache-jmeter-5.6.2 directory
+- name: confirm stat /usr/local/apache-jmeter-{{ jmeter_version }} directory
   stat: 
-    path: /usr/local/apache-jmeter-5.6.2
+    path: /usr/local/apache-jmeter-{{ jmeter_version }}
   register: original_jmeter_directory
 
 # JMeter ディレクトリのリネーム
-- name: rename apache-jmeter-5.6.2 to jmeter
-  shell: mv apache-jmeter-5.6.2 jmeter
+- name: rename apache-jmeter-{{ jmeter_version }} to jmeter
+  shell: mv apache-jmeter-{{ jmeter_version }} jmeter
     chdir=/usr/local/
   ignore_errors: yes
   when: original_jmeter_directory.stat.exists
