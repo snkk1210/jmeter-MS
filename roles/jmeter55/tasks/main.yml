@@ -1,5 +1,5 @@
 ---
-# tasks file for jmeter54
+# tasks file for jmeter55
 
 # JMeter 構築に必要なパッケージの導入
 - name: install packages for JMeter
