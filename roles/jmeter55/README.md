@@ -29,12 +29,7 @@ Example Playbook
 
 - none
 
-License
--------
-
-BSD
-
 Author Information
 ------------------
 
-- keisuke sanuki 
+- snkk1210 
