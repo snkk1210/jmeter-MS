@@ -29,11 +29,6 @@ Dependencies
 
 - none
 
-Example Playbook
-----------------
-
-- none
-
 Author Information
 ------------------
 
