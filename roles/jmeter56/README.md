@@ -23,6 +23,7 @@ Role Variables
 ```
 ---
 jmeter_version: 5.6.x
+heapm_size: 256m
 ```
 
 Dependencies

@@ -16,7 +16,10 @@ Requirements
 Role Variables
 --------------
 
-- none
+```
+---
+heapm_size: 256m
+```
 
 Dependencies
 ------------
