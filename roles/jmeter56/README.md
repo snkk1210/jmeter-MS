@@ -24,6 +24,7 @@ Role Variables
 ---
 jmeter_version: 5.6.x
 heapm_size: 256m
+remote_hosts: xxx.xxx.xxx.10,xxx.xxx.xxx.11
 ```
 
 Dependencies

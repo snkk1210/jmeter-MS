@@ -21,6 +21,7 @@ Role Variables
 ```
 ---
 heapm_size: 256m
+remote_hosts: xxx.xxx.xxx.10,xxx.xxx.xxx.11
 ```
 
 Dependencies
