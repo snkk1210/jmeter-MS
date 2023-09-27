@@ -1,4 +1,4 @@
-slave-jmeter
+jmeter-worker
 =========
 
 - JMeter Worker 起動スクリプト設置
