@@ -19,7 +19,10 @@ Requirements
 Role Variables
 --------------
 
-- none
+```
+---
+jmeter_version: 5.6.x
+```
 
 Dependencies
 ------------
