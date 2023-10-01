@@ -11,30 +11,25 @@ jmeter55
 Requirements
 ------------
 
+### Target
 - CentOS7
 - AlmaLinux8
 
 Role Variables
 --------------
 
-- none
+```
+---
+heapm_size: 256m
+remote_hosts: xxx.xxx.xxx.10,xxx.xxx.xxx.11
+```
 
 Dependencies
 ------------
 
 - none
 
-Example Playbook
-----------------
-
-- none
-
-License
--------
-
-BSD
-
 Author Information
 ------------------
 
-- keisuke sanuki 
+- snkk1210 

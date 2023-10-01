@@ -1,23 +1,27 @@
 common
 =========
 
-- 開発パッケージインストール
-- 各種パッケージアップデート
-- epelインストール
-- selinuxライブラリインストール
-- selinux無効化
-- firewalld無効化
-- 運用パッケージインストール
-- ホストネーム設定
-- カーネルパラメータ設定
-- limit.conf設定
-- timezone設定
-- history設定
+- 開発系パッケージ インストール
+- パッケージ アップデート
+- EPEL インストール
+- SELinux ライブラリインストール
+- SELinux 無効化
+- Firewalld 無効化
+- 運用パッケージ インストール
+- ホストネーム 設定
+- カーネルパラメータ 調整
+- limit.conf 調整
+- TimeZone 調整
+- history カスタマイズ
 
 Requirements
 ------------
 
+### Target
 - CentOS7
+- AlmaLinux8
+- AlmaLinux9
+- RockyLinux9
 
 Role Variables
 --------------
@@ -29,17 +33,7 @@ Dependencies
 
 - none
 
-Example Playbook
-----------------
-
-- none
-
-License
--------
-
-BSD
-
 Author Information
 ------------------
 
-- keisuke sanuki 
+- snkk1210 

@@ -11,6 +11,7 @@ jmeter56
 Requirements
 ------------
 
+### Target
 - CentOS7
 - AlmaLinux8
 - AlmaLinux9
@@ -19,15 +20,15 @@ Requirements
 Role Variables
 --------------
 
-- none
+```
+---
+jmeter_version: 5.6.x
+heapm_size: 256m
+remote_hosts: xxx.xxx.xxx.10,xxx.xxx.xxx.11
+```
 
 Dependencies
 ------------
-
-- none
-
-Example Playbook
-----------------
 
 - none
 

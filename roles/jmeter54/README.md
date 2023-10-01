@@ -10,29 +10,23 @@ jmeter54
 Requirements
 ------------
 
+### Target
 - CentOS7
 
 Role Variables
 --------------
 
-- none
+```
+---
+heapm_size: 256m
+```
 
 Dependencies
 ------------
 
 - none
 
-Example Playbook
-----------------
-
-- none
-
-License
--------
-
-BSD
-
 Author Information
 ------------------
 
-- keisuke sanuki 
+- snkk1210 

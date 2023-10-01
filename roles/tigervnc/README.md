@@ -1,24 +1,26 @@
 tigervnc
 =========
 
-- tigervnc-server インストール
+- TigerVNC インストール
 - expect インストール
-- GUI環境 のセットアップ
-- vnc ユーザのセットアップ
-- vnc Unit ファイルの設置
+- GUI 環境 セットアップ
+- VNC ユーザ セットアップ
+- VNC Unit ファイル設置
 
 Requirements
 ------------
 
+### Target
 - CentOS7
+- AlmaLinux8
+- AlmaLinux9
+- RockyLinux9
 
 Role Variables
 --------------
 
 ```
 ---
-# vars file for tigervnc
-
 vnc_passwd: vncserver
 ```
 
@@ -27,17 +29,12 @@ Dependencies
 
 - none
 
-Example Playbook
-----------------
+Dependencies
+------------
 
 - none
-
-License
--------
-
-BSD
 
 Author Information
 ------------------
 
-- keisuke sanuki 
+- snkk1210 

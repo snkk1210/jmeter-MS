@@ -3,7 +3,7 @@ minimum/httpd
 
 ## これは何？
 
-Apache の基本的な設定を行う playbook です。
+Apache の基本的な設定を行う Playbook です。
 
 - Apache インストール
 - SeverName の設定
@@ -11,16 +11,12 @@ Apache の基本的な設定を行う playbook です。
 - mpm の調整
 - 最低限のセキュリティ設定
 
-## 変数
+Role Variables
+--------------
 
-none
-
-License
--------
-
-BSD
+- none
 
 Author Information
 ------------------
 
-- keisuke sanuki 
+- snkk1210 
