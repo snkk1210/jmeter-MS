@@ -55,7 +55,7 @@ vi group_vars/all.yml
 - HEAPメモリ のサイズを定義  
 ※ 定義しなければ 256M が設定されます。
 ```
-heapm_size: xxxM
+heapm_size: xxxm
 ```
 
 - VNC 接続のパスワードを定義 ( 6 文字以上 )  
