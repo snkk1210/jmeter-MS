@@ -5,24 +5,18 @@ JMeter クラスタ環境を AWS にデプロイする Terraform コードです
 ## Usage
 ### 1. 環境変数
 
-- AWS のアクセスキーを定義
+- 環境変数に AWS のアクセスキーを設定
 ```
-export TF_VAR_jmeter_aws_access_key=
-export TF_VAR_jmeter_aws_secret_key=
+export TF_VAR_jmeter_aws_access_key=xxxxxxxxxxxxxxxxxxxxxx
+export TF_VAR_jmeter_aws_secret_key=xxxxxxxxxxxxxxxxxxxxxx
 ```
 
-### 2. JMeter キーペア設置
+### 2. キーペア設置
 
-- SSH 公開鍵認証用の公開鍵を下記ファイル名で配置
+- SSH 公開鍵認証用のキーペアを配置
 ```
-./modules/ec2/public_key/jmeter.pub
-```
-- SSH 公開鍵認証用の秘密鍵を下記ファイル名で配置
-```
-./modules/ec2/secret_key/jmeter.key
-```
-※ 秘密鍵のパーミッションを調整
-```
+ssh-keygen -t rsa -b 2048 -f ./modules/ec2/secret_key/jmeter.key
+mv ./modules/ec2/secret_key/jmeter.key.pub ./modules/ec2/public_key/jmeter.pub
 chmod 700 ./modules/ec2/secret_key/jmeter.key
 ```
 
@@ -36,7 +30,7 @@ cp -p ./provider.tf.example ./provider.tf
 cp -p ./terraform.tfvars.example ./terraform.tfvars
 ```
 
-### 4. Ansible での JMeter プロビジョニング
+### 4. プロビジョニング設定
 
 - Provisioning 用のフラグを立てる
 ```
@@ -47,7 +41,22 @@ enable_w_provision = true
 ==========================
 ```
 
-- IAM に対応した接続用のユーザを定義 ( ec2-user / centos )
+- SSH 接続元の IP Cidr に書き換える
+```
+vi ./ec2.tf
+==========================
+// Controller Server Connection IP
+security_group_rules_controller = [
+  "xxx.xxx.xxx.xxx/32",
+]
+// Worker Server Connection IP
+security_group_rules_worker = [
+  "xxx.xxx.xxx.xxx/32",
+]
+==========================
+```
+
+- AMI に応じた接続用のユーザを定義 ( ex. ec2-user or centos )
 ```
 cp -p ./../../target.yml.example ./../../target.yml
 vi ./../../target.yml
@@ -56,7 +65,7 @@ remote_user: xxxxxx
 ==========================
 ```
 
-- JMeter 用のパラメータを定義 ( README を参照してください )
+- JMeter のパラメータを定義 ( README を参照してください )
 ```
 cp -p ./../../group_vars/all.yml.example ./../../group_vars/all.yml
 vi ./../../group_vars/all.yml
