@@ -9,3 +9,6 @@ group_vars/all.yml
 
 # 秘密鍵
 *.pem
+
+# syntax check file ( Ansible )
+syntax_checker.yml
