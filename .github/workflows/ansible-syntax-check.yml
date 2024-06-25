@@ -1,0 +1,16 @@
+name: Ansible syntax check
+
+on: push
+
+jobs:
+  ansible-syntax-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate all roles checker playbook
+        run: ansible-playbook generate_checker.yml
+
+      - name: Syntax check
+        run: ansible-playbook -i hosts.example syntax_checker.yml --syntax-check
