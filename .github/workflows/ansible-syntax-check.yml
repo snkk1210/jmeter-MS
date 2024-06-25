@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Generate all roles checker playbook
-        run: ansible-playbook generate_checker.yml
+        run: ansible-playbook generate_checker.yml -vvv
 
       - name: Syntax check
         run: ansible-playbook -i hosts.example syntax_checker.yml --syntax-check
