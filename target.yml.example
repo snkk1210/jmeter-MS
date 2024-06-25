@@ -7,7 +7,7 @@
   roles:
     - common
     - tigervnc
-    - jmeter55
+    - jmeter56
     #- python-scripts
     #- minimum/httpd
     - phpjmadmin
@@ -19,6 +19,6 @@
   become: yes
   roles:
     - common
-    - jmeter55
+    - jmeter56
     - jmeter-worker
     #- reboot
