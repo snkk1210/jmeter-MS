@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Find all roles directories
+      find:
+        paths: roles
+        file_type: directory
+        recurse: false
+      register: found_roles
+
+    - name: Generate roles list
+      set_fact:
+        roles_list: "{{ found_roles.files | map(attribute='path') | map('basename') | list }}"
+
+    - name: Generate playbook with all roles
+      template:
+        src: roles_template.j2
+        dest: syntax_checker.yml
+      vars:
+        roles_list: "{{ roles_list }}"
