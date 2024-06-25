@@ -1,8 +1,8 @@
 ---
-- include: common_rhel8.yml
+- include_tasks: common_rhel8.yml
   when:
     - ansible_facts['distribution_major_version'] == "7" or ansible_facts['distribution_major_version'] == "8" 
  
-- include: common_rhel9.yml
+- include_tasks: common_rhel9.yml
   when:
     - ansible_facts['distribution_major_version'] == "9"

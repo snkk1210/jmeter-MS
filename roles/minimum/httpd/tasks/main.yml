@@ -23,7 +23,7 @@
     - mpm.conf
     - security.conf
 
-- include: security.yml
+- import_tasks: security.yml
 
 - name: start apache
   systemd:

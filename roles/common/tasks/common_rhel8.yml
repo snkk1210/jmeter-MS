@@ -99,5 +99,5 @@
      dest=/root/.bashrc
      line="HISTTIMEFORMAT='%Y-%m-%dT%T%z '"
 
-- include: host_change.yml
-- include: etckeeper_commit.yml
+- import_tasks: host_change.yml
+- import_tasks: etckeeper_commit.yml
