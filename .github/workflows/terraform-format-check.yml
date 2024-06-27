@@ -1,4 +1,4 @@
-name: Terraform syntax check
+name: Terraform format check
 
 on: 
   push:
@@ -6,7 +6,7 @@ on:
       - 'terraform/**'
 
 jobs:
-  terraform-syntax-check:
+  terraform-format-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,6 +19,4 @@ jobs:
 
       - name: Format check
         run: terraform fmt -no-color -check -diff -recursive
-
-      # TODO: Validate check
       
