@@ -1,0 +1,24 @@
+name: Terraform syntax check
+
+on: 
+  push:
+    paths:
+      - 'terraform/**'
+
+jobs:
+  terraform-syntax-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.9.0
+
+      - name: Format check
+        run: terraform fmt -no-color -check -diff -recursive
+
+      # TODO: Validate check
+      
