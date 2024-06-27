@@ -1,10 +1,24 @@
-variable "project" {
-  type    = string
-  default = ""
+/** 
+# Variables for COMMON
+*/
+variable "common" {
+  type = object({
+    project     = string
+    environment = string
+  })
+
+  default = {
+    project     = ""
+    environment = ""
+  }
 }
 
-variable "cidr_prefix" {
-  default = "10.0"
+/** 
+# Variables for EC2
+*/
+variable "vpc_cidr" {
+  type = string
+  default = ""
 }
 
 variable "vpc_id" {
