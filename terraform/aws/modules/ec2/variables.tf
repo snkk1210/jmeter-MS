@@ -17,7 +17,7 @@ variable "common" {
 # Variables for EC2
 */
 variable "vpc_cidr" {
-  type = string
+  type    = string
   default = ""
 }
 

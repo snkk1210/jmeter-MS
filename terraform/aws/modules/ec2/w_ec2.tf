@@ -26,7 +26,7 @@ resource "aws_instance" "worker" {
   }
 
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-jmeter-${format("worker%02d", count.index + 1)}"
+    Name        = "${var.common.project}-${var.common.environment}-jmeter-${format("worker%02d", count.index + 1)}"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }

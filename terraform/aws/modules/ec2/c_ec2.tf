@@ -26,7 +26,7 @@ resource "aws_instance" "controller" {
   }
 
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-jmeter-${format("controller%02d", count.index + 1)}"
+    Name        = "${var.common.project}-${var.common.environment}-jmeter-${format("controller%02d", count.index + 1)}"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }
@@ -35,10 +35,10 @@ resource "aws_instance" "controller" {
 resource "aws_eip" "controller" {
   count    = var.c_number
   instance = element(aws_instance.controller.*.id, count.index)
-  domain = "vpc"
+  domain   = "vpc"
 
   tags = {
-    Name = "${var.common.project}-${var.common.environment}-jmeter-${format("controller%02d", count.index + 1)}-eip"
+    Name        = "${var.common.project}-${var.common.environment}-jmeter-${format("controller%02d", count.index + 1)}-eip"
     Environment = var.common.environment
     Createdby   = "Terraform"
   }
