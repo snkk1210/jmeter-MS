@@ -1,7 +1,9 @@
 variable "project" {
-  description = "Project Name"
+  type    = string
+  default = "snkk1210"
 }
 
-variable "cidr_prefix" {
-  description = "Cidr Prefix"
+variable "environment" {
+  type    = string
+  default = "loadtest"
 }
