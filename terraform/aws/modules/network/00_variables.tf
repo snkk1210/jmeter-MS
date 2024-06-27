@@ -36,7 +36,7 @@ variable "az2" {
 */
 variable "vpc_cidr" {
   type    = string
-  default = ""
+  default = "10.0.0.0/16"
 }
 
 /** 
@@ -44,12 +44,12 @@ variable "vpc_cidr" {
 */
 variable "public_az1_cidr" {
   type    = string
-  default = ""
+  default = "10.0.0.0/20"
 }
 
 variable "public_az2_cidr" {
   type    = string
-  default = ""
+  default =  "10.0.16.0/20"
 }
 
 /** 
@@ -57,10 +57,10 @@ variable "public_az2_cidr" {
 */
 variable "isolated_az1_cidr" {
   type    = string
-  default = ""
+  default = "10.0.32.0/20"
 }
 
 variable "isolated_az2_cidr" {
   type    = string
-  default = ""
+  default = "10.0.48.0/20"
 }
