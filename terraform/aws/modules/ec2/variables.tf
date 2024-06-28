@@ -33,7 +33,7 @@ variable "subnet_ids" {
 variable "ami" {
   type        = string
   description = "AMI ID to launch"
-  default     = "ami-0b299c22ffb336d85"
+  default     = "ami-02f2cac4a2cf9384a"
 }
 
 variable "instance_type" {

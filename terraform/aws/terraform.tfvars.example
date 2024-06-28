@@ -13,6 +13,6 @@ enable_c_provision              = true                    # Whether to provision
 enable_w_provision              = true                    # Whether to provision Worker or not
 security_group_rules_controller = ["0.0.0.0/0"]           # Controller Server Connection IP
 security_group_rules_worker     = ["0.0.0.0/0"]           # Worker Server Connection IP
-ami                             = "ami-0b299c22ffb336d85" # default: Almalinux8
+ami                             = "ami-02f2cac4a2cf9384a" # default: Almalinux9
 instance_type                   = "m5.large"              # m5.large or larger recommended
 volume_size                     = 30
