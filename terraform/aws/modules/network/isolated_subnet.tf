@@ -41,11 +41,11 @@ resource "aws_route_table" "isolated" {
 }
 
 resource "aws_route_table_association" "isolated_az1" {
-  subnet_id      = aws_subnet.isolated_az1
+  subnet_id      = aws_subnet.isolated_az1.id
   route_table_id = aws_route_table.isolated.id
 }
 
 resource "aws_route_table_association" "isolated_az2" {
-  subnet_id      = aws_subnet.isolated_az2
+  subnet_id      = aws_subnet.isolated_az2.id
   route_table_id = aws_route_table.isolated.id
 }
