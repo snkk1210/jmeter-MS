@@ -15,7 +15,7 @@ resource "aws_instance" "worker" {
     volume_size           = var.root_block_device.volume_size
     delete_on_termination = var.root_block_device.delete_on_termination
     encrypted             = var.root_block_device.encrypted
-    kms_key_id            = var.root_block_device.encrypted ? aws_kms_key.ebs.key_id : null
+    kms_key_id            = var.root_block_device.encrypted ? data.aws_kms_key.ebs.key_id : null
   }
 
   lifecycle {
