@@ -2,32 +2,28 @@ module "ec2" {
   source = "./modules/ec2"
 
   # Number of Controller
-  c_number = 1
+  c_number = var.c_number
   # Number of Worker
-  w_number = 2
+  w_number = var.w_number
 
   # Whether to provision Controller or not
-  enable_c_provision = true
+  enable_c_provision = var.enable_c_provision
   # Whether to provision Worker or not
-  enable_w_provision = true
+  enable_w_provision = var.enable_w_provision
 
   # Controller Server Connection IP
-  security_group_rules_controller = [
-    "xxx.xxx.xxx.xxx/32",
-  ]
+  security_group_rules_controller = var.security_group_rules_controller
 
   # Worker Server Connection IP
-  security_group_rules_worker = [
-    "xxx.xxx.xxx.xxx/32",
-  ]
+  security_group_rules_worker = var.security_group_rules_worker
 
   # default: Almalinux8
-  ami = "ami-0b299c22ffb336d85"
+  ami = var.ami
   # m5.large or larger recommended
-  instance_type = "m5.large"
+  instance_type = var.instance_type
 
   common = {
-    project = var.project
+    project     = var.project
     environment = var.environment
   }
 
@@ -37,7 +33,7 @@ module "ec2" {
   associate_public_ip_address = true
   root_block_device = {
     "volume_type"           = "gp2"
-    "volume_size"           = 30
+    "volume_size"           = var.volume_size
     "delete_on_termination" = true
     "encrypted"             = true
   }
