@@ -62,5 +62,5 @@ terraform apply
 以下のようなエラーが発生した場合は、AMI のサブスクリプションが必要です。  
 エラーメッセージ内のリンクから該当 AMI をサブスクライブしてください。
 ```
-api error OptInRequired: In order to use this AWS Marketplace product you need to accept terms and subscribe. To do so please visit https://aws.amazon.com/marketplace/pp?sku=be714bpjscoj5uvqz0of5mscl
+api error OptInRequired: In order to use this AWS Marketplace product you need to accept terms and subscribe. To do so please visit https://aws.amazon.com/marketplace/pp?sku=xxxxxxxxxxxxxxx
 ```
