@@ -6,7 +6,7 @@ resource "aws_instance" "controller" {
   ami                         = var.ami
   instance_type               = var.instance_type
   vpc_security_group_ids      = [aws_security_group.controller.id]
-  key_name                    = aws_key_pair.key_pair.id
+  key_name                    = aws_key_pair.this.id
   subnet_id                   = var.subnet_ids[0]
   associate_public_ip_address = var.associate_public_ip_address
 
