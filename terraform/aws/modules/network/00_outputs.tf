@@ -9,8 +9,8 @@ output "vpc_cidr" {
 output "public_subnet_ids" {
   value = tolist(
     [
-      aws_subnet.public_1a.id,
-      aws_subnet.public_1c.id,
+      aws_subnet.public_az1.id,
+      aws_subnet.public_az2.id,
     ]
   )
 }
@@ -18,8 +18,8 @@ output "public_subnet_ids" {
 output "isolated_subnet_ids" {
   value = tolist(
     [
-      aws_subnet.isolated_1a.id,
-      aws_subnet.isolated_1c.id,
+      aws_subnet.isolated_az1.id,
+      aws_subnet.isolated_az2.id,
     ]
   )
 }
