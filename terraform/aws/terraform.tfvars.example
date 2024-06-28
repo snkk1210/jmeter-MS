@@ -1,2 +1,18 @@
+/** 
+# Variables for COMMON
+*/
 project     = "snkk1210"
-cidr_prefix = "10.0"
+environment = "loadtest"
+
+/** 
+# Variables for EC2
+*/
+c_number                        = 1                       # Number of Controller
+w_number                        = 1                       # Number of Worker
+enable_c_provision              = true                    # Whether to provision Controller or not
+enable_w_provision              = true                    # Whether to provision Worker or not
+security_group_rules_controller = ["0.0.0.0/0"]           # Controller Server Connection IP
+security_group_rules_worker     = ["0.0.0.0/0"]           # Worker Server Connection IP
+ami                             = "ami-02f2cac4a2cf9384a" # default: Almalinux9
+instance_type                   = "m5.large"              # m5.large or larger recommended
+volume_size                     = 30

@@ -17,10 +17,6 @@
 *.pub
 
 # example file
-network_ap-northeast-1.tf
-ec2.tf
-backend.tf
-provider.tf
 terraform.tfvars
 
 # Lock File

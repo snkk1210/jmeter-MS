@@ -1,58 +1,31 @@
 ## What is this ?
 
-JMeter クラスタ環境を AWS にデプロイする Terraform コードです。  
+JMeter クラスター環境を AWS にデプロイする Terraform コードです。  
 
 ## Usage
-### 1. 環境変数
+### 1. キーペア作成
 
-- 環境変数に AWS のアクセスキーを設定
+- SSH 認証用のキーペアを作成
 ```
-export TF_VAR_jmeter_aws_access_key=xxxxxxxxxxxxxxxxxxxxxx
-export TF_VAR_jmeter_aws_secret_key=xxxxxxxxxxxxxxxxxxxxxx
-```
-
-### 2. キーペア設置
-
-- SSH 公開鍵認証用のキーペアを配置
-```
-ssh-keygen -t rsa -b 2048 -f ./modules/ec2/secret_key/jmeter.key
-mv ./modules/ec2/secret_key/jmeter.key.pub ./modules/ec2/public_key/jmeter.pub
-chmod 700 ./modules/ec2/secret_key/jmeter.key
+ssh-keygen -t rsa -b 2048 -f ./modules/ec2/key/jmeter.key
+chmod 700 ./modules/ec2/key/jmeter.key
 ```
 
-### 3. tf ファイル作成
+### 2. パラメータ調整
 
-- 雛形ファイルを元に .tf ファイルを作成
+- 雛形ファイルを元に tfvars ファイルを作成
 ```
-cp -p ./ec2.tf.example ./ec2.tf
-cp -p ./network_ap-northeast-1.tf.example ./network_ap-northeast-1.tf
-cp -p ./provider.tf.example ./provider.tf
 cp -p ./terraform.tfvars.example ./terraform.tfvars
-```
-
-### 4. プロビジョニング設定
-
-- Provisioning 用のフラグを立てる
-```
-vi ./ec2.tf
-==========================
-enable_c_provision = true
-enable_w_provision = true
-==========================
 ```
 
 - SSH 接続元の IP Cidr に書き換える
 ```
-vi ./ec2.tf
+vi ./terraform.tfvars
 ==========================
 // Controller Server Connection IP
-security_group_rules_controller = [
-  "xxx.xxx.xxx.xxx/32",
-]
+security_group_rules_controller = ["xx.xx.xx.xx/32"]
 // Worker Server Connection IP
-security_group_rules_worker = [
-  "xxx.xxx.xxx.xxx/32",
-]
+security_group_rules_worker     = ["xx.xx.xx.xx/32"]
 ==========================
 ```
 
@@ -74,13 +47,20 @@ vi ./../../group_vars/all.yml
 heapm_size: 256m
 vnc_passwd: vncserver
 remote_hosts: 192.168.33.10,192.168.33.11
-#flanker_branch: release/0.0.7
+flanker_branch: release/0.0.8
 ==========================
 ```
 
-### 5. apply
+### 3. デプロイ
 
 ```
 terraform init
 terraform apply
+```
+
+## Supplement
+以下のようなエラーが発生した場合は、AMI のサブスクリプションが必要です。  
+エラーメッセージ内のリンクから該当 AMI をサブスクライブしてください。
+```
+api error OptInRequired: In order to use this AWS Marketplace product you need to accept terms and subscribe. To do so please visit https://aws.amazon.com/marketplace/pp?sku=xxxxxxxxxxxxxxx
 ```

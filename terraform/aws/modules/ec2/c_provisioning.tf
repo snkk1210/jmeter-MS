@@ -22,7 +22,7 @@ resource "null_resource" "ansible_c_provisioner" {
   depends_on = [null_resource.wait_for_c_instance]
 
   provisioner "local-exec" {
-    command     = "ansible-playbook -i ./terraform/aws/modules/ec2/bin/ansible/hosts-c-${aws_eip.controller[count.index].public_ip} target.yml --private-key=./terraform/aws/modules/ec2/secret_key/jmeter.key"
+    command     = "ansible-playbook -i ./terraform/aws/modules/ec2/bin/ansible/hosts-c-${aws_eip.controller[count.index].public_ip} target.yml --private-key=./terraform/aws/modules/ec2/key/jmeter.key"
     working_dir = "./../.."
   }
 }

@@ -1,9 +1,9 @@
 resource "aws_security_group" "worker" {
-  name        = "${var.project}-jmeter-worker-sg"
+  name        = "${var.common.project}-${var.common.environment}-jmeter-worker-sg"
   description = "Security group for worker"
   vpc_id      = var.vpc_id
   tags = {
-    Name = "${var.project}-jmeter-worker-sg"
+    Name = "${var.common.project}-${var.common.environment}-jmeter-worker-sg"
   }
 }
 
@@ -36,7 +36,7 @@ resource "aws_security_group_rule" "worker_internal_all_ingress" {
   from_port         = 0
   to_port           = 0
   protocol          = "-1"
-  cidr_blocks       = ["${var.cidr_prefix}.0.0/16"]
+  cidr_blocks       = ["${var.vpc_cidr}"]
   security_group_id = aws_security_group.worker.id
 
   lifecycle {
