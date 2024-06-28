@@ -15,9 +15,8 @@ export TF_VAR_jmeter_aws_secret_key=xxxxxxxxxxxxxxxxxxxxxx
 
 - SSH 公開鍵認証用のキーペアを配置
 ```
-ssh-keygen -t rsa -b 2048 -f ./modules/ec2/secret_key/jmeter.key
-mv ./modules/ec2/secret_key/jmeter.key.pub ./modules/ec2/public_key/jmeter.pub
-chmod 700 ./modules/ec2/secret_key/jmeter.key
+ssh-keygen -t rsa -b 2048 -f ./modules/ec2/key/jmeter.key
+chmod 700 ./modules/ec2/key/jmeter.key
 ```
 
 ### 3. tf ファイル作成
