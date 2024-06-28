@@ -1,10 +1,10 @@
-## ・What is this ?
+## What is this ?
 
-JMeter クラスタ環境をプロビジョニングする Ansible Playbook です。  
-対応するクラウドリソースをデプロイする Terraform HCL も併せて管理しています。  
-※ HCL 詳細は ./terraform/ 配下の README.md を参照下さい。  
+JMeter クラスター環境をプロビジョニングする Ansible Playbook です。  
+対応するクラウドリソースをデプロイするための Terraform コードも併せて管理しています。  
+※ Terraform の詳細は ./terraform/ 配下の [README.md](https://github.com/snkk1210/jmeter-MS/blob/master/terraform/aws/README.md) を参照ください。  
 
-## ・Requirements
+## Requirements
 
 ### Target
 - CentOS7
@@ -12,8 +12,8 @@ JMeter クラスタ環境をプロビジョニングする Ansible Playbook で�
 - AlmaLinux9
 - RockyLinux9
 
-## ・Usage
-### 1. リポジトリを clone
+## Usage
+### 1. リポジトリの clone
 ```
 git clone https://github.com/snkk1210/jmeter-MS.git
 cd jmeter-MS
@@ -24,15 +24,15 @@ cd jmeter-MS
 cp -p hosts.example hosts
 vi hosts
 ```
-⇒ プロビジョニング対象の IP アドレス をそれぞれ記述して下さい。   
-※ 複数記述可  
+-> プロビジョニング対象の IP アドレス をそれぞれ記述して下さい。   
+※ 複数のホストを記述できます。  
 
 ```
 [controller] 
-jmeter-controller ansible_host=xxx.xxx.xxx.xxx ⇐ controller ノード  
+jmeter-controller ansible_host=xxx.xxx.xxx.xxx <- Controller ノード  
 [worker]  
-jmeter-worker1 ansible_host=xxx.xxx.xxx.xxx ⇐ worker ノード
-jmeter-worker2 ansible_host=xxx.xxx.xxx.xxx ⇐ worker ノード
+jmeter-worker1 ansible_host=xxx.xxx.xxx.xxx <- Worker ノード
+jmeter-worker2 ansible_host=xxx.xxx.xxx.xxx <- Worker ノード
 ```
 
 ### 3. 接続ユーザを定義
@@ -40,12 +40,12 @@ jmeter-worker2 ansible_host=xxx.xxx.xxx.xxx ⇐ worker ノード
 cp -p target.yml.example target.yml
 vi target.yml
 ```
-⇒ 下記項目にプロビジョニング対象への SSH 接続ユーザを定義
+-> 以下項目にプロビジョニング対象の SSH 接続ユーザを定義
 
 ```
 remote_user: xxxxxx
 ```
-### 4. 各種変数を定義
+### 4. パラメタ変数を定義
 
 ```
 cp -p group_vars/all.yml.example group_vars/all.yml
@@ -59,7 +59,7 @@ heapm_size: xxxm
 ```
 
 - VNC 接続のパスワードを定義 ( 6 文字以上 )  
-※ 定義しなければ「vncserver」が設定されます。
+※ 定義しなければ vncserver の文字列が設定されます。
 ```
 vnc_passwd: string_6
 ```
@@ -88,15 +88,15 @@ ansible-playbook -i hosts target.yml --ask-pass
 ansible-playbook -i hosts target.yml --private-key=xxxxxxx
 ```
 
-## ・WEB コンパネ
+## WEB コンパネ
 
 WEB ベースで JMeter を一括操作できるコントロールパネルを用意しています。  
 
-※ 詳細は下記リポジトリの README を参照下さい。  
+※ 詳細は以下リポジトリの README を参照下さい。  
 https://github.com/snkk1210/flanker
 
 
-## ・プロビジョニング後の対応
+## プロビジョニング後の対応
 ※ 先の「WEB コンパネ」で JMeter を操作するのであれば、本項は無視ください。
 
 ### 1. Controller と Worker の紐づけ
@@ -105,8 +105,8 @@ https://github.com/snkk1210/flanker
 vi /usr/local/jmeter/bin/jmeter.properties
 ```
 
-⇒ 下記項目に使用する worker サーバの IP を記述する  
-※ 複数指定可 ( , で区切る )
+-> 以下項目に使用する Worker サーバの IP を記述  
+※ カンマ ( , ) 区切りで複数指定できます。  
 
 ```
 remote_hosts=xxx.xxx.xxx.xxx,xxx.xxx.xxx.xxx,xxx.xxx.xxx.xxx
@@ -117,21 +117,21 @@ remote_hosts=xxx.xxx.xxx.xxx,xxx.xxx.xxx.xxx,xxx.xxx.xxx.xxx
 ```
 vi /usr/local/jmeter/bin/start-controller_cui.sh
 ```
-⇒ 下記に使用するシナリオファイルを絶対パスで定義
+-> 以下変数に使用するシナリオファイルを絶対パスで定義
 
 ```
-FILE_JMX=
+FILE_JMX=/path/to/sample.jmx
 ```
 
-### 3. JMeter の起動（負荷試験開始）
+### 3. JMeter の起動（ 負荷試験開始 ）
 
 ```
 /usr/local/jmeter/bin/start-controller_cui.sh
 ```
-⇒ 試験結果レポートは Apache のドキュメントルート配下に生成されます。  
-※ Controller サーバにブラウザで接続して確認することが可能です。  
+-> 試験結果レポートは Apache のドキュメントルート配下に生成されます。  
+※ ブラウザを使用して Controller サーバに接続し、レポートを確認することができます。
 
-## ・トラシュー
+## トラシュー
 
 ### vncserver が立ち上がらない時
 
@@ -140,6 +140,6 @@ rm /tmp/.X11-unix/*
 systemctl restart vncserver@:1.service
 ```
 
-## ・Version
+## Version
 
 release/0.0.5
