@@ -1,4 +1,8 @@
 ---
+# ref: https://cloudlinux.zendesk.com/hc/en-us/articles/12225072530204-yum-update-error-Error-GPG-check-FAILED
+- name: rpm --import https://repo.almalinux.org/almalinux/RPM-GPG-KEY-AlmaLinux
+  shell: rpm --import https://repo.almalinux.org/almalinux/RPM-GPG-KEY-AlmaLinux
+
 # yum update
 - name: yum update
   yum:
