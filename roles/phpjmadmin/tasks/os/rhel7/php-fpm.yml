@@ -4,26 +4,6 @@
     name:
       - epel-release
       - http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-  when:
-    - ansible_facts['distribution_major_version'] == "7"
-
-- name: install epel and remi repository for RHEL8
-  yum:
-    name:
-      - epel-release
-      - https://rpms.remirepo.net/enterprise/remi-release-8.rpm
-    disable_gpg_check: yes
-  when:
-    - ansible_facts['distribution_major_version'] == "8"
-
-- name: install epel and remi repository for RHEL9
-  yum:
-    name:
-      - epel-release
-      - https://rpms.remirepo.net/enterprise/remi-release-9.rpm
-    disable_gpg_check: yes
-  when:
-    - ansible_facts['distribution_major_version'] == "9"
 
 - name: install php-module for RHEL7
   yum:
@@ -32,22 +12,6 @@
     state: present
   with_items:
     - "{{ php_modules | default('php-fpm', true) }}"
-  when:
-    - ansible_facts['distribution_major_version'] == "7"
-
-- name: dnf module enable for RHEL8 or RHEL9
-  shell: "dnf module enable -y php:remi-{{ php_var | default('8.1', true) }}"
-  when:
-    - ansible_facts['distribution_major_version'] == "8" or ansible_facts['distribution_major_version'] == "9"
-
-- name: install php-module for RHEL8 or RHEL9
-  yum:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - "{{ php_modules | default('php-fpm', true) }}"
-  when:
-    - ansible_facts['distribution_major_version'] == "8" or ansible_facts['distribution_major_version'] == "9"
 
 - name: change php.ini
   lineinfile:
@@ -68,19 +32,6 @@
     group: root
     mode: 0644
     backup: yes
-  when:
-    - ansible_facts['distribution_major_version'] == "7"
-
-- name: deploy www.conf for RHEL8
-  template:
-    src: ../templates/www8.conf
-    dest: /etc/php-fpm.d/www.conf
-    owner: root
-    group: root
-    mode: 0644
-    backup: yes
-  when:
-    - ansible_facts['distribution_major_version'] == "8"
 
 - name: change permission
   file:
@@ -103,7 +54,7 @@
 
 - name: change file descriptor limit for php-fpm
   template:
-    src: ../templates/limits.conf
+    src: ../../../templates/limits.conf
     dest: /etc/systemd/system/php-fpm.service.d/
     owner: root
     group: root
