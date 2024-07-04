@@ -1,6 +1,17 @@
 ---
 - include_tasks: apache.yml
-- include_tasks: php-fpm.yml
+
+- include_tasks: os/rhel7/php-fpm.yml
+  when:
+    - ansible_facts['distribution_major_version'] == "7"
+
+- include_tasks: os/rhel8/php-fpm.yml
+  when:
+    - ansible_facts['distribution_major_version'] == "8"
+
+- include_tasks: os/rhel9/php-fpm.yml
+  when:
+    - ansible_facts['distribution_major_version'] == "9"
 
 - name: git clone flanker
   ansible.builtin.git:

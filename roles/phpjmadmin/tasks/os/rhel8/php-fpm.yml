@@ -1,0 +1,73 @@
+---
+- name: install epel and remi repository for RHEL8
+  yum:
+    name:
+      - epel-release
+      - https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+    disable_gpg_check: yes
+
+- name: dnf module enable for RHEL8
+  shell: "dnf module enable -y php:remi-{{ php_var | default('8.1', true) }}"
+
+- name: install php-module for RHEL8
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ php_modules | default('php-fpm', true) }}"
+
+- name: change php.ini
+  lineinfile:
+    dest: /etc/php.ini
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: ";date.timezone*" ,line: "date.timezone = Asia/Tokyo" }
+    - { regexp: "expose_php = On" ,line: "expose_php = Off" }
+    - { regexp: "post_max_size = 8M" ,line: "post_max_size = 128M" }
+    - { regexp: "upload_max_filesize = 2M" ,line: "upload_max_filesize = 128M" }
+
+- name: deploy www.conf for RHEL8
+  template:
+    src: ../../../templates/www8.conf
+    dest: /etc/php-fpm.d/www.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  when:
+    - ansible_facts['distribution_major_version'] == "8"
+
+- name: change permission
+  file:
+    path: /var/lib/php/{{ item }}
+    owner: root
+    group: "{{ webuser | default('apache', true) }}"
+    mode: 0770
+  with_items:
+    - opcache
+    - session
+    - wsdlcache
+
+- name: mkdir /etc/systemd/system/php-fpm.service.d/
+  file:
+    path: /etc/systemd/system/php-fpm.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: change file descriptor limit for php-fpm
+  template:
+    src: ../../../templates/limits.conf
+    dest: /etc/systemd/system/php-fpm.service.d/
+    owner: root
+    group: root
+    mode: 0644
+
+- name: restart php-fpm
+  systemd:
+    name: php-fpm
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
