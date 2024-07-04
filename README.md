@@ -7,7 +7,6 @@ JMeter クラスター環境をプロビジョニングする Ansible Playbook �
 ## Requirements
 
 ### Target
-- CentOS7
 - AlmaLinux8
 - AlmaLinux9
 - RockyLinux9
