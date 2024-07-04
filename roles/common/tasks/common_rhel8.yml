@@ -1,7 +1,23 @@
 ---
+##############################################
+# This Playbook is shared by RHEL7 and RHEL8 #
+##############################################
+
+# ref: https://serverfault.com/questions/1161816/mirrorlist-centos-org-no-longer-resolve
+- name: modify repository references
+  shell: '{{ item }}'
+  with_items:
+    - sed -i s/mirror.centos.org/vault.centos.org/g /etc/yum.repos.d/*.repo
+    - sed -i s/^#.*baseurl=http/baseurl=http/g /etc/yum.repos.d/*.repo
+    - sed -i s/^mirrorlist=http/#mirrorlist=http/g /etc/yum.repos.d/*.repo
+  when:
+    - ansible_facts['distribution_major_version'] == "7" 
+
 # ref: https://cloudlinux.zendesk.com/hc/en-us/articles/12225072530204-yum-update-error-Error-GPG-check-FAILED
 - name: rpm --import https://repo.almalinux.org/almalinux/RPM-GPG-KEY-AlmaLinux
   shell: rpm --import https://repo.almalinux.org/almalinux/RPM-GPG-KEY-AlmaLinux
+  when:
+    - ansible_facts['distribution_major_version'] == "8" 
 
 # yum update
 - name: yum update
